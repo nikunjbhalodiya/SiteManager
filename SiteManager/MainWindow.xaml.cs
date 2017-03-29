@@ -23,6 +23,13 @@ namespace SiteManager
         public MainWindow()
         {
             InitializeComponent();
+            this.listView.ItemsSource = new List<SiteModel>
+            {
+                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi", City = "Ahemdabad"
+                }
+            };
         }
+
+
     }
 }
