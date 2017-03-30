@@ -1,0 +1,4 @@
+E:\SiteManager\SiteManager.Repository\bin\Debug\SiteManager.Repository.dll
+E:\SiteManager\SiteManager.Repository\bin\Debug\SiteManager.Repository.pdb
+E:\SiteManager\SiteManager.Repository\obj\Debug\SiteManager.Repository.dll
+E:\SiteManager\SiteManager.Repository\obj\Debug\SiteManager.Repository.pdb
