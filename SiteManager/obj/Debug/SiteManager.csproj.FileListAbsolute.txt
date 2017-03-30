@@ -1,1 +1,0 @@
-E:\DotNet\SiteManager\SiteManager\bin\Debug\SiteManager.exe.config
