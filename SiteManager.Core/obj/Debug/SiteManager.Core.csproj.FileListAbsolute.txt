@@ -1,7 +1,0 @@
-E:\SiteManager\SiteManager.Core\bin\Debug\SiteManager.Core.dll
-E:\SiteManager\SiteManager.Core\bin\Debug\SiteManager.Core.pdb
-E:\SiteManager\SiteManager.Core\obj\Debug\SiteManager.Core.csprojResolveAssemblyReference.cache
-E:\SiteManager\SiteManager.Core\obj\Debug\SiteManager.Core.dll
-E:\SiteManager\SiteManager.Core\obj\Debug\SiteManager.Core.pdb
-E:\SiteManager\SiteManager.Core\bin\Debug\SiteManager.Repository.dll
-E:\SiteManager\SiteManager.Core\bin\Debug\SiteManager.Repository.pdb
