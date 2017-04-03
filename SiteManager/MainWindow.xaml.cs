@@ -20,16 +20,27 @@ namespace SiteManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<SiteModel> _siteModel;
         public MainWindow()
         {
             InitializeComponent();
-            this.listView.ItemsSource = new List<SiteModel>
+            _siteModel = new List<SiteModel>
             {
-                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi", City = "Ahemdabad"
-                }
+                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi" }
             };
+            this.listView.ItemsSource = _siteModel;
         }
 
-
+        private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+                
+                this.Hide();
+                SiteDetail siteDetail = new SiteDetail(item.Content as SiteModel);
+                siteDetail.ShowDialog();
+            }
+        }
     }
 }

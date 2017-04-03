@@ -1,0 +1,142 @@
+﻿<Page x:Class="SiteManager.CreditDebitDetail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SiteManager"
+      mc:Ignorable="d" 
+      Background="WhiteSmoke"
+      Title="Credit Debit Detail">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Label Style="{StaticResource PageHeaderStyle}">Credit Debit Detail</Label>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Search :</Label>
+                <TextBox  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <Button x:Name="btnSearch"  Grid.Row="1" Margin="10" Grid.Column="2" Height="30" Width="100" Content="Search" HorizontalAlignment="Left"></Button>
+
+
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="3" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                    <Label Style="{StaticResource HeaderStyle}" Content="Customer Detail"></Label>
+                    <ListView x:Name="listViewDetail" Margin="10" Height="250" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Mobile Number" DisplayMemberBinding="{Binding MobileNumber}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Date Of Purchase" DisplayMemberBinding="{Binding DateOfPurchase}" />
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Label Style="{StaticResource HeaderStyle}" Content="Nikunj Payment Detail"></Label>
+                    <ListView x:Name="lstPaymentDetail" Margin="10" Height="250" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Credit Amount"  DisplayMemberBinding="{Binding CreditAmount}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Debit Amount" DisplayMemberBinding="{Binding DebitAmount}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment Mode" DisplayMemberBinding="{Binding PaymentMode}" />
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="4" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource HeaderStyle}">Add Payment Detail</Label>
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Name:</Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+
+                <Label Grid.Row="3" Grid.Column="0"  Style="{StaticResource LabelStyle}">Credit :</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+
+                <Label Grid.Row="4" Grid.Column="0"  Style="{StaticResource LabelStyle}">Debit :</Label>
+                <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource LabelStyle}">Payment Mode:</Label>
+                <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="10">
+                    <RadioButton Name="rbCash" Style="{StaticResource RadioStyle}" GroupName="PaymentMode" Content="Cash" Margin="10" />
+                    <RadioButton Name="rbCheque" Style="{StaticResource RadioStyle}" GroupName="PaymentMode" Content="Cheque" Margin="10" />
+                    <RadioButton Name="rbCard" Style="{StaticResource RadioStyle}" GroupName="PaymentMode" Content="Card" Margin="10" />
+                </StackPanel>
+
+                <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">remark:</Label>
+                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+
+                <Button x:Name="btnCreditDetail" Grid.Row="7" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Update Payment" HorizontalAlignment="Left"></Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

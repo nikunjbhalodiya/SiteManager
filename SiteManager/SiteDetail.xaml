@@ -1,0 +1,27 @@
+﻿<Window x:Class="SiteManager.SiteDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SiteManager"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Background="WhiteSmoke"
+        Title="Site Detail">
+    <Grid>
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="Customer Detail" Height="30">
+                <Frame Source="CustomerDetail.xaml"  />
+            </TabItem>
+            <TabItem Header="Material Detail" Height="30">
+                <Frame Source="MaterialDetail.xaml"  />
+            </TabItem>
+            <TabItem Header="Labour Payment Detail" Height="30">
+                <Frame Source="LabourPaymentDetail.xaml"  />
+            </TabItem>
+            <TabItem Header="Credit/Debit Detail" Height="30">
+                <Frame Source="CreditDebitDetail.xaml"  />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
