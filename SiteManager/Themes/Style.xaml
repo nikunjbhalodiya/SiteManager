@@ -2,9 +2,83 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SiteManager">
 
+    <!--Label style start-->
     <Style x:Key="HeaderStyle" TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="Foreground" Value="DarkGray" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="10" />
     </Style>
+    <Style x:Key="PageHeaderStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="Foreground" Value="DarkGray" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+    <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+    <Style x:Key="ErrorMessageStyle" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="HorizontalAlignment"  Value="Left"/>
+    </Style>
+    <!--Label style end-->
+    
+    <!--TextBox style-->
+    <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
+        <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Black"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+            <ScrollViewer x:Name="PART_ContentHost"/>
+        </Border>
+        
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+            </Trigger>
+            <Trigger Property="Width" Value="Auto">
+                <Setter Property="MinWidth" Value="100"/>
+            </Trigger>
+            <Trigger Property="Height" Value="Auto">
+                <Setter Property="MinHeight" Value="20"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+    <!--TextBox style-->
+
+    <!--Radio Style-->
+    <Style x:Key="RadioStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Heavy" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
+    <!--Combo Style-->
+    <Style x:Key="ComboStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Heavy" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    
+    <!--Grid Style-->
+        <DataTemplate x:Key="GridHeaderTemplate">
+            <TextBlock FontSize="16" Foreground="DarkBlue" HorizontalAlignment="Left" FontWeight="Bold" >
+                <TextBlock.Text>
+                    <Binding/>
+                </TextBlock.Text>
+            </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>
