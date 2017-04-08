@@ -18,7 +18,7 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-           
+
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
@@ -28,32 +28,47 @@
         <Border Grid.Row="1" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray" >
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">Site Name:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Site Name:</Label>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtSiteName" Text="{Binding SiteToAdd.SiteName, Mode=TwoWay}" GotFocus="txtSiteName_GotFocus" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                    <Label Visibility="{Binding SiteErrorVisibility}" Style="{StaticResource ErrorMessageStyle}">* Site name required</Label>
+                </StackPanel>
 
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Site Address:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" Template="{StaticResource TextBoxBaseControlTemplate}" />
-
-                <Button x:Name="btnAddSite" Grid.Row="2" Margin="10" Grid.Column="2" Width="100" Content="Add Site" HorizontalAlignment="Left"></Button>
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Site Address:</Label>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtAddress" Text="{Binding SiteToAdd.Address, Mode=TwoWay}" GotFocus="txtAddress_GotFocus" Style="{StaticResource TextBoxStyle}" Width="500" />
+                    <Label Visibility="{Binding AddressErrorVisibility}" Style="{StaticResource ErrorMessageStyle}">*Address required</Label>
+                </StackPanel>
+                <Button x:Name="btnAddSite" Grid.Row="3" Margin="10" Grid.Column="1" Width="100" Command="{Binding AddSite}" CommandParameter="{Binding SiteToAdd}" Content="Add Site" HorizontalAlignment="Left"></Button>
             </Grid>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray" >
             <StackPanel>
                 <Label Style="{StaticResource HeaderStyle}">Site Informtion (Click on anyone to see the detail).</Label>
-                <ListView x:Name="listView" Margin="10" Width="500" Height="500" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Sites}" Width="500" Height="500" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Site Name" Width="200" DisplayMemberBinding="{Binding SiteName}" />
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address" Width="299" DisplayMemberBinding="{Binding Address}" />
+                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Site Name" Width="199" DisplayMemberBinding="{Binding SiteName}" />
+                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address" Width="200" DisplayMemberBinding="{Binding Address}" />
+                            <GridViewColumn Header="Delete" Width="100" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="30,0,0,0" HorizontalAlignment="Center"  Background="Transparent" Command="{Binding Path=DataContext.DeleteSite, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                     <ListView.ItemContainerStyle>

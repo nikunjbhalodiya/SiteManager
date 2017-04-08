@@ -35,6 +35,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -42,25 +43,67 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">House Number:</Label>
-                <TextBox  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtHouseNumber" GotFocus="txtHouseNumber_GotFocus" LostFocus="txtHouseNumber_LostFocus"  Style="{StaticResource TextBoxStyle}"  Text="{Binding CustomerToAdd.HouseNumber, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                    <Label x:Name="lblHouseNumberErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* House number required.</Label>
+                </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Customer Name:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtName" GotFocus="txtName_GotFocus" LostFocus="txtName_LostFocus" Style="{StaticResource TextBoxStyle}" Width="500" Text="{Binding CustomerToAdd.CustomerName, Mode=TwoWay}" HorizontalAlignment="Left" />
+                    <Label x:Name="lblNameErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Customer Name required.</Label>
+                </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Mobile Number:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CustomerToAdd.MobileNumber, Mode=TwoWay}" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                <!--<Label x:Name="lblMobileErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Mobile Number required.</Label>-->
+
 
                 <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Total House Cost:</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <TextBox x:Name="txtHouseCost" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" PreviewTextInput="TextBox_PreviewTextInput_1" Text="{Binding CustomerToAdd.TotalCost, Mode=TwoWay}" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Work:</Label>
-                <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerToAdd.ExtraWork, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Cost:</Label>
-                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
-                <Button x:Name="btnAddCustomer" Grid.Row="7" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left"></Button>
+                <Button x:Name="btnAddCustomer" Grid.Row="7" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
+
+                <StackPanel Grid.Row="8" Grid.Column="1">
+                    <Label Style="{StaticResource HeaderStyle}">Material Informtion.</Label>
+                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Number"  DisplayMemberBinding="{Binding HouseNumber}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Cost"  DisplayMemberBinding="{Binding TotalCost}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Moile Number"  DisplayMemberBinding="{Binding MobileNumber}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Work"  DisplayMemberBinding="{Binding ExtraWork}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Cost"  DisplayMemberBinding="{Binding ExtraCost}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Entry Date"  DisplayMemberBinding="{Binding EntryDate, StringFormat='dd/MM/yyyy'}" />
+
+                                <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
+                                                Background="Transparent" 
+                                                Command="{Binding Path=DataContext.DeleteMaterial, RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>-->
+                            </GridView>
+                        </ListView.View>
+                        <!--<ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>-->
+                    </ListView>
+                </StackPanel>
             </Grid>
+
         </Border>
     </Grid>
 

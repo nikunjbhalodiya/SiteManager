@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E8B290C-AD50-4216-A47F-DCCC2017E6D4}</ProjectGuid>
+    <ProjectGuid>{611EC1BF-0D46-42E9-82AD-861968EFC30F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SiteManager.Repository</RootNamespace>
-    <AssemblyName>SiteManager.Repository</AssemblyName>
+    <RootNamespace>SiteManager.Core.Model</RootNamespace>
+    <AssemblyName>SiteManager.Core.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,10 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs" />
+    <Compile Include="Labour.cs" />
+    <Compile Include="Material.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
+    <Compile Include="SiteModel.cs" />
+    <Compile Include="Supervisor.cs" />
+    <Compile Include="Vendor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

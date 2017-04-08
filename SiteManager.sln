@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteManager.Repository", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteManager.Core", "SiteManager.Core\SiteManager.Core.csproj", "{3DF85E5F-F411-4CF8-92DD-367CF967C000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteManager.Core.Model", "SiteManager.Core.Model\SiteManager.Core.Model.csproj", "{611EC1BF-0D46-42E9-82AD-861968EFC30F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3DF85E5F-F411-4CF8-92DD-367CF967C000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DF85E5F-F411-4CF8-92DD-367CF967C000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DF85E5F-F411-4CF8-92DD-367CF967C000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{611EC1BF-0D46-42E9-82AD-861968EFC30F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611EC1BF-0D46-42E9-82AD-861968EFC30F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611EC1BF-0D46-42E9-82AD-861968EFC30F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611EC1BF-0D46-42E9-82AD-861968EFC30F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

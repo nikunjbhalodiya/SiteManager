@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,13 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerViewModel.cs" />
+    <Compile Include="MaterialViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="SiteInformationViewModel.cs" />
+    <Compile Include="SupervisorDetailViewModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SiteManager.Core.Model\SiteManager.Core.Model.csproj">
+      <Project>{611ec1bf-0d46-42e9-82ad-861968efc30f}</Project>
+      <Name>SiteManager.Core.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SiteManager.Repository\SiteManager.Repository.csproj">
       <Project>{4e8b290c-ad50-4216-a47f-dccc2017e6d4}</Project>
       <Name>SiteManager.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

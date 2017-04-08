@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
@@ -36,36 +37,156 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Material Type :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <ComboBox x:Name="cmbMaterialType" Style="{StaticResource ComboStyle}" ItemsSource="{Binding MaterialTypes}" SelectedItem="{Binding MaterialToAdd.SelectedMaterialType, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="Value" SelectedValuePath="Key"  Width="350"></ComboBox>
+                    <Label x:Name="lblMaterialErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Please select Material.</Label>
+                </StackPanel>
+
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Vendor Name :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <ComboBox x:Name="cmbVendor" Style="{StaticResource ComboStyle}" SelectedItem="{Binding MaterialToAdd.SelectedVendor, Mode=TwoWay}" ItemsSource="{Binding VendorList}" SelectedIndex="0" DisplayMemberPath="Value" SelectedValuePath="Key"  Width="250"></ComboBox>
+                    <Button x:Name="btnAddVendor" Content="Add Vendor"  Click="btnAddVendor_Click" Height="25" Width="80" Margin="10" />
+                    <Label x:Name="lblVendorErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Please select vendor.</Label>
+                </StackPanel>
+
+                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Number :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" >
+                    <TextBox x:Name="txtBillNbr" GotFocus="txtBillNbr_GotFocus" Text="{Binding MaterialToAdd.BillNumber, Mode=TwoWay}" LostFocus="txtBillNbr_LostFocus" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <Label x:Name="lblBillErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Bill Number Required.</Label>
+                </StackPanel>
+
+                <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Date :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
+                    <DatePicker HorizontalAlignment="Left" Margin="10" Text="{Binding MaterialToAdd.BillDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="350"/>
+                </StackPanel>
+
+                <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Quantity :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" >
+                    <TextBox x:Name="txtQty" PreviewTextInput="txtQty_PreviewTextInput" Text="{Binding MaterialToAdd.Quantity, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                    <ComboBox x:Name="cmbQtyUnits" Style="{StaticResource ComboStyle}" ItemsSource="{Binding Units, Mode=TwoWay}" SelectedItem="{Binding MaterialToAdd.SelectedUnit}" SelectedIndex="0" Width="80" DisplayMemberPath="Value" SelectedValuePath="Key"></ComboBox>
+                    <Label x:Name="lblQtyErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}" Content="{Binding QtyErrorMsg}"></Label>
+                </StackPanel>
+
+
+                <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Bill Amount :</Label>
+                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" >
+                    <TextBox  x:Name="txtBillAmt" PreviewTextInput="txtBillAmt_PreviewTextInput" Text="{Binding MaterialToAdd.BillAmount, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <Label x:Name="lblBillAmtErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Bill Amount Required.</Label>
+                </StackPanel>
+
+                <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark :</Label>
+                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="350" Text="{Binding MaterialToAdd.Remark, Mode=TwoWay}" HorizontalAlignment="Left" />
+
+                <Button x:Name="btnAddDetail" Grid.Row="8" Margin="10" Grid.Column="1" Command="{Binding AddMaterial}" CommandParameter="{Binding MaterialToAdd}" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
+
+                <StackPanel Grid.Row="9" Grid.ColumnSpan="3">
+                    <Label Style="{StaticResource HeaderStyle}">Material Informtion.</Label>
+                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Materials}" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Material"  DisplayMemberBinding="{Binding SelectedMaterialType.Value}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Vendor"  DisplayMemberBinding="{Binding SelectedVendor.Value}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Bill Number"  DisplayMemberBinding="{Binding BillNumber}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Quantity"  DisplayMemberBinding="{Binding Quantity}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Amount"  DisplayMemberBinding="{Binding BillAmount}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Bill Date"  DisplayMemberBinding="{Binding BillDate, StringFormat='dd/MM/yyyy'}" />
+
+                                <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
+                                                Background="Transparent" 
+                                                Command="{Binding Path=DataContext.DeleteMaterial, RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>-->
+                            </GridView>
+                        </ListView.View>
+                        <!--<ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>-->
+                    </ListView>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Label Style="{StaticResource PageHeaderStyle}">Vendor Detail</Label>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Grid x:Name="VenorGrid" IsEnabled="{Binding IsVendorGridEnabled}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Material Type :</Label>
-                <ComboBox Grid.Row="1" Grid.Column="1" Style="{StaticResource ComboStyle}" ItemsSource="{Binding}" DisplayMemberPath="Name" SelectedValuePath="Id" x:Name="cmbMaterialType" Width="500"></ComboBox>
+                <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Vendor Name :</Label>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtVendorName" GotFocus="txtVendorName_GotFocus" LostFocus="txtVendorName_LostFocus" Text="{Binding VendorToAdd.VendorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <Label x:Name="lblNameErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Vendor Name required.</Label>
+                </StackPanel>
 
-                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Vendor Name :</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Address :</Label>
+                <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                    <TextBox x:Name="txtAddress" GotFocus="txtAddress_GotFocus" LostFocus="txtAddress_LostFocus" Text="{Binding VendorToAdd.Address, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <Label x:Name="lblAddressErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Address required.</Label>
+                </StackPanel>
 
-                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Number:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Remark :</Label>
+                <TextBox x:Name="txtRemark" Grid.Row="3" Grid.Column="1" Text="{Binding VendorToAdd.VendorRemark, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                
+                <Button x:Name="btnAddVendorDetail" Click="btnAddVendorDetail_Click" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding AddVendor}" CommandParameter="{Binding VendorToAdd}"  Height="30" Width="100" Content="Add Vendor" HorizontalAlignment="Left"></Button>
 
-                <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Date :</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                <StackPanel Grid.Row="5" Grid.ColumnSpan="2">
+                    <Label Style="{StaticResource HeaderStyle}">Vendor Informtion.</Label>
+                    <ListView x:Name="VendorlistView" Margin="10,10,0,10" ItemsSource="{Binding Vendors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Vendor Name" DisplayMemberBinding="{Binding VendorName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address " DisplayMemberBinding="{Binding Address}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Remark" DisplayMemberBinding="{Binding Remark}" />
 
-                <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Quantity :</Label>
-                <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
+                                <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
+                                                Background="Transparent" 
+                                                Command="{Binding DataContext.DeleteVendor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                        <!--<ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <EventSetter Event="Control.MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>-->
+                    </ListView>
+                </StackPanel>
 
-                <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Bill Amount :</Label>
-                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
-
-                <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark :</Label>
-                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" Template="{StaticResource TextBoxBaseControlTemplate}" />
-
-                <Button x:Name="btnAddDetail" Grid.Row="8" Margin="10" Grid.Column="1" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
             </Grid>
         </Border>
-        
     </Grid>
 </Page>

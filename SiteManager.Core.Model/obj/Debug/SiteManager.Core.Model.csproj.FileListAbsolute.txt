@@ -1,0 +1,5 @@
+E:\SiteManager\SiteManager.Core.Model\bin\Debug\SiteManager.Core.Model.dll
+E:\SiteManager\SiteManager.Core.Model\bin\Debug\SiteManager.Core.Model.pdb
+E:\SiteManager\SiteManager.Core.Model\obj\Debug\SiteManager.Core.Model.dll
+E:\SiteManager\SiteManager.Core.Model\obj\Debug\SiteManager.Core.Model.pdb
+E:\SiteManager\SiteManager.Core.Model\obj\Debug\SiteManager.Core.Model.csprojResolveAssemblyReference.cache

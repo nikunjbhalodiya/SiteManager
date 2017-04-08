@@ -55,7 +55,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SiteModel.cs" />
+    <Compile Include="CreditDebitDetail.xaml.cs">
+      <DependentUpon>CreditDebitDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerDetail.xaml.cs">
+      <DependentUpon>CustomerDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LabourPaymentDetail.xaml.cs">
+      <DependentUpon>LabourPaymentDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialDetail.xaml.cs">
+      <DependentUpon>MaterialDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SiteDetail.xaml.cs">
+      <DependentUpon>SiteDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SupervisorDetail.xaml.cs">
+      <DependentUpon>SupervisorDetail.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CreditDebitDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LabourPaymentDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +97,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MaterialDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SiteDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SupervisorDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +142,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SiteManager.Core.Model\SiteManager.Core.Model.csproj">
+      <Project>{611ec1bf-0d46-42e9-82ad-861968efc30f}</Project>
+      <Name>SiteManager.Core.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SiteManager.Core\SiteManager.Core.csproj">
       <Project>{3df85e5f-f411-4cf8-92dd-367cf967c000}</Project>
       <Name>SiteManager.Core</Name>

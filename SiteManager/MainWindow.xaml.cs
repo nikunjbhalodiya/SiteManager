@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SiteManager.Core;
+using SiteManager.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,14 +23,29 @@ namespace SiteManager
     public partial class MainWindow : Window
     {
         List<SiteModel> _siteModel;
+        SiteInformationViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
             _siteModel = new List<SiteModel>
             {
-                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi" }
+                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi" },
+                new SiteModel { SiteName = "ABC", Address = "APs" },
+
             };
-            this.listView.ItemsSource = _siteModel;
+            _viewModel = new SiteInformationViewModel(_siteModel);
+            DataContext = _viewModel;
+            _viewModel.MessageBoxEvent += () =>
+            {
+                var result = MessageBox.Show("Would you like to delete the site.", "Delete Site",MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
         }
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -41,6 +58,21 @@ namespace SiteManager
                 SiteDetail siteDetail = new SiteDetail(item.Content as SiteModel);
                 siteDetail.ShowDialog();
             }
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void txtAddress_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.AddressErrorVisibility = Visibility.Hidden;
+        }
+
+        private void txtSiteName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            _viewModel.SiteErrorVisibility = Visibility.Hidden;
         }
     }
 }

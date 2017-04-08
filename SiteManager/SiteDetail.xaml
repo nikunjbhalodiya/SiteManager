@@ -16,6 +16,9 @@
             <TabItem Header="Material Detail" Height="30">
                 <Frame Source="MaterialDetail.xaml"  />
             </TabItem>
+            <TabItem Header="Supervisor Detail" Height="30">
+                <Frame Source="SupervisorDetail.xaml"  />
+            </TabItem>
             <TabItem Header="Labour Payment Detail" Height="30">
                 <Frame Source="LabourPaymentDetail.xaml"  />
             </TabItem>
