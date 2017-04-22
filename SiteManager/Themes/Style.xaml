@@ -67,7 +67,6 @@
     <!--Combo Style-->
     <Style x:Key="ComboStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontWeight" Value="Heavy" />
         <Setter Property="Margin" Value="10" />
         <Setter Property="Background" Value="White" />
         <Setter Property="HorizontalAlignment" Value="Left" />

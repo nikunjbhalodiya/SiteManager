@@ -9,15 +9,15 @@ namespace SiteManager.Core.Model
 {
     public class Labour
     {
+        public Labour()
+        {
+            PaymentDate = DateTime.Today;
+        }
         public int LabourId { get; set; }
 
-        public Dictionary<int, string> Contractors { get; set; }
+        public Contractor Contractor { get; set; }
 
-        public Dictionary<int, string> WorkTypes { get; set; }
-
-        public KeyValuePair<int, string> Contractor { get; set; }
-
-        public KeyValuePair<int, string> WorkType { get; set; }
+        public WorkType WorkType { get; set; }
 
         public string WorkDetail { get; set; }
 
@@ -27,7 +27,7 @@ namespace SiteManager.Core.Model
 
         public string Remark { get; set; }
 
-        public DateTime EntryDate { get; set; }
-
+        public DateTime CreateDate { get; set; }
+        public int SiteId { get; set; }
     }
 }

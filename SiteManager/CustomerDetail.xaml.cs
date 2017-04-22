@@ -26,7 +26,7 @@ namespace SiteManager
         public CustomerDetail()
         {
             InitializeComponent();
-            _viewModel = new CustomerViewModel();
+            _viewModel = new CustomerViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
         }
 

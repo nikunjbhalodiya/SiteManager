@@ -12,5 +12,6 @@ namespace SiteManager.Core.Model
         public string VendorName { get; set; }
         public string Address { get; set; }
         public string Remark { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

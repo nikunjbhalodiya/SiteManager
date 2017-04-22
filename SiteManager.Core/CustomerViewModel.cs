@@ -5,15 +5,21 @@ using SiteManager.Core.Command;
 using System.Windows;
 using System;
 using System.Linq;
+using SiteManager.Repository;
 
 namespace SiteManager.Core
 {
     public class CustomerViewModel : ViewModelBase
     {
-
-        public CustomerViewModel()
+        private readonly RepositoryManager _repositoryManager;
+        private int count;
+        public CustomerViewModel(int siteId)
         {
-            _customers = new ObservableCollection<Customer>(new List<Customer> { new Customer { CustomerId =1, HouseNumber="E-708", CustomerName= "Nik", EntryDate=DateTime.Today, ExtraCost=2000, ExtraWork="Window work", MobileNumber= "894562321", TotalCost=2500000 } });
+            _repositoryManager = new RepositoryManager(new SqliteContext());
+            SiteId = siteId;
+            var customers = _repositoryManager.GetCustomerBySiteId(SiteId);
+            count = customers.Any() ? customers.Last().CustomerId : 0;
+            _customers = new ObservableCollection<Customer>(customers);
             Add = new RelayCommand(AddCommand);
             CustomerToAdd = new Customer();
         }
@@ -25,13 +31,15 @@ namespace SiteManager.Core
             {
                 return;
             }
-            customer.EntryDate = DateTime.Now;
+            customer.CreatedDate = DateTime.Now;
+            customer.CustomerId = count = count + 1; 
+            customer.SiteId = SiteId;
+            _repositoryManager.AddCustomer(customer);
             _customers.Add(customer);
             CustomerToAdd = new Customer();
         }
 
         public RelayCommand Add { get; set; }
-
 
         private ObservableCollection<Customer> _customers;
 

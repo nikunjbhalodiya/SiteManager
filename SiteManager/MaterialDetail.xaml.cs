@@ -26,7 +26,7 @@ namespace SiteManager
         public MaterialDetail()
         {
             InitializeComponent();
-            _viewModel = new MaterialViewModel();
+            _viewModel = new MaterialViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
             _viewModel.MessageBoxEvent += () =>
             {
@@ -100,5 +100,17 @@ namespace SiteManager
         {
             VenorGrid.IsEnabled = _viewModel.IsVendorGridEnabled;
         }
+
+        //private void cmbQtyUnits_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    var combo = sender as ComboBox;
+        //    combo.SelectedIndex = 0;
+        //}
+
+        //private void cmbMaterialType_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    var combo = sender as ComboBox;
+        //    combo.SelectedIndex = 0;
+        //}
     }
 }

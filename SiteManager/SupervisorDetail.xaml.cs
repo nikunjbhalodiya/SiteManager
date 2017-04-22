@@ -27,7 +27,7 @@ namespace SiteManager
         public SupervisorDetail()
         {
             InitializeComponent();
-            _viewModel = new SupervisorDetailViewModel();
+            _viewModel = new SupervisorDetailViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
             _viewModel.MessageBoxEvent += () =>
             {

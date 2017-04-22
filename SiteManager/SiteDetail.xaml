@@ -11,10 +11,10 @@
     <Grid>
         <TabControl TabStripPlacement="Left">
             <TabItem Header="Customer Detail" Height="30">
-                <Frame Source="CustomerDetail.xaml"  />
+                <Frame Source="CustomerDetail.xaml"   />
             </TabItem>
             <TabItem Header="Material Detail" Height="30">
-                <Frame Source="MaterialDetail.xaml"  />
+                <Frame Source="MaterialDetail.xaml" />
             </TabItem>
             <TabItem Header="Supervisor Detail" Height="30">
                 <Frame Source="SupervisorDetail.xaml"  />

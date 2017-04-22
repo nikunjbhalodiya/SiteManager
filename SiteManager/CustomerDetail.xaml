@@ -36,6 +36,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="10" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -62,28 +63,33 @@
                 <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Total House Cost:</Label>
                 <TextBox x:Name="txtHouseCost" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" PreviewTextInput="TextBox_PreviewTextInput_1" Text="{Binding CustomerToAdd.TotalCost, Mode=TwoWay}" HorizontalAlignment="Left" />
 
-                <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Work:</Label>
-                <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerToAdd.ExtraWork, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource LabelStyle}">Purchase Date :</Label>
+                <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Text="{Binding CustomerToAdd.PurchaseDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="500"/>
 
-                <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Cost:</Label>
-                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
-                <Button x:Name="btnAddCustomer" Grid.Row="7" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
+                <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Work:</Label>
+                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerToAdd.ExtraWork, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
-                <StackPanel Grid.Row="8" Grid.Column="1">
-                    <Label Style="{StaticResource HeaderStyle}">Material Informtion.</Label>
-                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Number"  DisplayMemberBinding="{Binding HouseNumber}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Cost"  DisplayMemberBinding="{Binding TotalCost}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Moile Number"  DisplayMemberBinding="{Binding MobileNumber}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Work"  DisplayMemberBinding="{Binding ExtraWork}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Cost"  DisplayMemberBinding="{Binding ExtraCost}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Entry Date"  DisplayMemberBinding="{Binding EntryDate, StringFormat='dd/MM/yyyy'}" />
+                <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Cost:</Label>
+                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
-                                <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                <Button x:Name="btnAddCustomer" Grid.Row="8" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
+
+                <StackPanel Grid.Row="9" Grid.Column="1">
+                    <Label Style="{StaticResource HeaderStyle}">Customer Informtion.</Label>
+                    <ScrollViewer  VerticalScrollBarVisibility="Visible">
+                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Height="250" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Number"  DisplayMemberBinding="{Binding HouseNumber}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="House Cost"  DisplayMemberBinding="{Binding TotalCost}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Mobile Number"  DisplayMemberBinding="{Binding MobileNumber}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Work"  DisplayMemberBinding="{Binding ExtraWork}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Cost"  DisplayMemberBinding="{Binding ExtraCost}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Purchase Date"  DisplayMemberBinding="{Binding PurchaseDate, StringFormat='dd/MM/yyyy'}" />
+
+                                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
@@ -93,14 +99,15 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>-->
-                            </GridView>
-                        </ListView.View>
-                        <!--<ListView.ItemContainerStyle>
+                                </GridView>
+                            </ListView.View>
+                            <!--<ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
                             </Style>
                         </ListView.ItemContainerStyle>-->
-                    </ListView>
+                        </ListView>
+                    </ScrollViewer>
                 </StackPanel>
             </Grid>
 

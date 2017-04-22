@@ -54,29 +54,33 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray" >
+
+        <Border Grid.Row="2" Grid.Column="1"  Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray" >
             <StackPanel>
                 <Label Style="{StaticResource HeaderStyle}">Site Informtion (Click on anyone to see the detail).</Label>
-                <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Sites}" Width="500" Height="500" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Site Name" Width="199" DisplayMemberBinding="{Binding SiteName}" />
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address" Width="200" DisplayMemberBinding="{Binding Address}" />
-                            <GridViewColumn Header="Delete" Width="100" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                <ScrollViewer  VerticalScrollBarVisibility="Visible">
+                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Sites}" Height="300" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Site Name" DisplayMemberBinding="{Binding SiteName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address"  DisplayMemberBinding="{Binding Address}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Created Date"  DisplayMemberBinding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                <GridViewColumn Header="Delete" Width="100" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="30,0,0,0" HorizontalAlignment="Center"  Background="Transparent" Command="{Binding Path=DataContext.DeleteSite, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </ScrollViewer>
             </StackPanel>
         </Border>
     </Grid>

@@ -8,6 +8,10 @@ namespace SiteManager.Core.Model
 {
     public class Customer
     {
+        public Customer()
+        {
+            PurchaseDate = DateTime.Now;
+        }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string HouseNumber { get; set; }
@@ -15,6 +19,8 @@ namespace SiteManager.Core.Model
         public decimal TotalCost { get; set; }
         public string ExtraWork { get; set; }
         public decimal ExtraCost { get; set; }
-        public DateTime EntryDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int SiteId { get; set; }
     }
 }

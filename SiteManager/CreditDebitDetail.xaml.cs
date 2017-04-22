@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SiteManager.Core;
+using SiteManager.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,16 +23,11 @@ namespace SiteManager
     /// </summary>
     public partial class CreditDebitDetail : Page
     {
-        private List<CustomerModel> _customers;
+        private DebitCreditOfPaymentViewModel _viewModel;
         public CreditDebitDetail()
         {
             InitializeComponent();
-            _customers = new List<CustomerModel>
-            {
-                new CustomerModel { CustomerId = 1, CustomerName="Nikunj B", DateOfPurchase= DateTime.Today, MobileNumber="9819536365" },
-                new CustomerModel { CustomerId = 2, CustomerName="Nikunj S", DateOfPurchase= DateTime.Today.AddDays(-1), MobileNumber="9016548798" },
-            };
-            listViewDetail.ItemsSource = _customers;
+            DataContext = _viewModel = new DebitCreditOfPaymentViewModel();
         }
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -37,28 +35,44 @@ namespace SiteManager
             var item = sender as ListViewItem;
             if (item != null && item.IsSelected)
             {
+                _viewModel.EntityClick.Execute(item.Content);
                 
             }
         }
 
-    }
+        private void lstPaymentDetail_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
 
-    public class CustomerModel {
-        public int CustomerId { get; set; }
-        public string CustomerName { get; set; }
-        public string MobileNumber { get; set; }
-        public DateTime DateOfPurchase { get; set; }
-    }
+        }
 
-    public class PaymentDetail {
-        public int Id { get; set; }
-        public int CusotmerId { get; set; }
+        private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            lblSearchErrMsg.Visibility = Visibility.Hidden;
+        }
 
-        public string CustomerName { get; set; }
+        private void txtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text) || txtSearch.Text.Length < 4)
+            {
+                lblSearchErrMsg.Visibility = Visibility.Visible;
+            }
+        }
 
-        public string PaymentMode { get; set; }
+        private void cmbEntityType_Loaded(object sender, RoutedEventArgs e)
+        {
+            var combo = sender as ComboBox;
+            combo.SelectedIndex = 0;
+        }
 
-        public decimal DebitAmount { get; set; }
-        public decimal CreditAmount { get; set; }
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+            return !regex.IsMatch(text);
+        }
     }
 }

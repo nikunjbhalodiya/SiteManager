@@ -13,15 +13,10 @@ namespace SiteManager.Core.Model
             BillDate = DateTime.Today;
         }
         public int MaterialDetailId { get; set; }
-        public Dictionary<int, string> MaterialTypes { get; set; }
-
-        public Dictionary<int, string> Vendors { get; set; }
-
-        public Dictionary<int, string> Units { get; set; }
 
         public KeyValuePair<int, string> SelectedMaterialType { get; set; }
 
-        public KeyValuePair<int, string> SelectedVendor { get; set; }
+        public Vendor SelectedVendor { get; set; }
 
         public KeyValuePair<int, string> SelectedUnit { get; set; }
 
@@ -34,5 +29,9 @@ namespace SiteManager.Core.Model
         public DateTime BillDate { get; set; }
 
         public string Remark { get; set; }
+
+        public int SiteId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

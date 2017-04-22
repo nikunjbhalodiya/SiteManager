@@ -9,11 +9,11 @@ namespace SiteManager
     /// </summary>
     public partial class SiteDetail : Window
     {
-        public SiteDetail(SiteModel siteModel)
+        public static int SiteId { get; set; }
+        public SiteDetail(int siteId)
         {
             InitializeComponent();
-            if (siteModel == null)
-                throw new ArgumentNullException(nameof(siteModel));
+            SiteId = siteId;
         }
     }
 }

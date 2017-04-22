@@ -25,5 +25,7 @@ namespace SiteManager.Core
             }
             return MessageBoxEvent();
         }
+
+        public int SiteId { get; set; }
     }
 }

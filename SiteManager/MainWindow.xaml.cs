@@ -22,18 +22,12 @@ namespace SiteManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<SiteModel> _siteModel;
         SiteInformationViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            _siteModel = new List<SiteModel>
-            {
-                new SiteModel { SiteName = "Paradigm", Address = "Manek chowk, paldi" },
-                new SiteModel { SiteName = "ABC", Address = "APs" },
-
-            };
-            _viewModel = new SiteInformationViewModel(_siteModel);
+            
+            _viewModel = new SiteInformationViewModel();
             DataContext = _viewModel;
             _viewModel.MessageBoxEvent += () =>
             {
@@ -55,8 +49,10 @@ namespace SiteManager
             {
                 
                 this.Hide();
-                SiteDetail siteDetail = new SiteDetail(item.Content as SiteModel);
+                var site = item.Content as SiteModel;
+                SiteDetail siteDetail = new SiteDetail(site.SiteId);
                 siteDetail.ShowDialog();
+                this.Show();
             }
         }
 

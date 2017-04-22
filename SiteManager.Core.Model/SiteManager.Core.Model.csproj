@@ -40,13 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contractor.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="DebitCreditOfPayment.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="EntityType.cs" />
     <Compile Include="Labour.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="PaymentMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteModel.cs" />
     <Compile Include="Supervisor.cs" />
     <Compile Include="Vendor.cs" />
+    <Compile Include="WorkType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

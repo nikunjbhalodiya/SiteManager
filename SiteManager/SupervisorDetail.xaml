@@ -53,41 +53,45 @@
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Duty Description :</Label>
                 <!--<StackPanel   Orientation="Horizontal">-->
                 <TextBox x:Name="txtDuty" Grid.Row="3" Grid.Column="1" Text="{Binding SupervisorToAdd.DutyDescription, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
-                    <!--<Label x:Name="lblDutyErrMsg" Visibility="{Binding}" Style="{StaticResource ErrorMessageStyle}">* Duty Description required.</Label>-->
+                <!--<Label x:Name="lblDutyErrMsg" Visibility="{Binding}" Style="{StaticResource ErrorMessageStyle}">* Duty Description required.</Label>-->
                 <!--</StackPanel>-->
 
                 <Button x:Name="btnAddSupervisor" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding Add}" CommandParameter="{Binding SupervisorToAdd}"  Height="30" Width="100" Content="Add Supervisor" HorizontalAlignment="Left"></Button>
             </Grid>
         </Border>
 
-        <Border Grid.Row="3" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray" >
+
+        <Border Grid.Row="3" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray">
             <StackPanel>
                 <Label Style="{StaticResource HeaderStyle}">Supervisor Informtion.</Label>
-                <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header=" Name" Width="150" DisplayMemberBinding="{Binding SupervisorName}" />
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Salary" Width="150" DisplayMemberBinding="{Binding MonthlySalary}" />
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Description" Width="200" DisplayMemberBinding="{Binding DutyDescription}" />
+                <ScrollViewer  VerticalScrollBarVisibility="Visible">
+                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header=" Name" DisplayMemberBinding="{Binding SupervisorName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Salary" DisplayMemberBinding="{Binding MonthlySalary}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Description" DisplayMemberBinding="{Binding DutyDescription}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Create Date" DisplayMemberBinding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
 
-                            <GridViewColumn Header="Delete" Width="100" HeaderTemplate="{StaticResource GridHeaderTemplate}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="30,0,0,0" HorizontalAlignment="Center"  
+                                <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
                                                 Background="Transparent" 
                                                 Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource FindAncestor, 
                                             AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </ScrollViewer>
             </StackPanel>
         </Border>
     </Grid>

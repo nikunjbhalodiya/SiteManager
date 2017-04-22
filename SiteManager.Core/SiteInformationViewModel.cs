@@ -4,14 +4,19 @@ using System.Collections.ObjectModel;
 using SiteManager.Core.Command;
 using System.Windows;
 using System;
+using SiteManager.Repository;
 
 namespace SiteManager.Core
 {
     public class SiteInformationViewModel : ViewModelBase
     {
-        public SiteInformationViewModel(IEnumerable<SiteModel> sites)
+        private readonly RepositoryManager _repositoryManager;
+        private int count;
+        public SiteInformationViewModel()
         {
-            _sites = new ObservableCollection<SiteModel>(sites);
+            _repositoryManager = new RepositoryManager(new SqliteContext());
+            _sites = new ObservableCollection<SiteModel>(_repositoryManager.GetSites());
+            count = _sites.Count;
             AddSite = new RelayCommand(AddSiteCommand);
             SiteToAdd = new SiteModel();
             DeleteSite = new RelayCommand(DeleteSiteCommand);
@@ -73,7 +78,8 @@ namespace SiteManager.Core
         private void AddSiteCommand(object siteToAdd)
         {
             var site = siteToAdd as SiteModel;
-
+            site.SiteId = count = count + 1;
+            site.CreatedDate = DateTime.Now;
             if (string.IsNullOrWhiteSpace(site.SiteName))
             {
                 SiteErrorVisibility = Visibility.Visible;
@@ -85,6 +91,7 @@ namespace SiteManager.Core
                 return;
             }
 
+            _repositoryManager.AddSite(site);
             _sites.Add(site);
             SiteToAdd = new SiteModel();
         }
@@ -92,9 +99,12 @@ namespace SiteManager.Core
         private void DeleteSiteCommand(object siteToDelete)
         {
             var site = siteToDelete as SiteModel;
-            
+
             if (OnMessageBoxEvent())
+            {
                 _sites.Remove(site);
+                _repositoryManager.DeleteSite(site);
+            }
         }
     }
 }

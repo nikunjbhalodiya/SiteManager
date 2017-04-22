@@ -4,16 +4,20 @@ using System.Collections.ObjectModel;
 using SiteManager.Core.Command;
 using System.Windows;
 using System;
+using SiteManager.Repository;
 
 namespace SiteManager.Core
 {
     public class SupervisorDetailViewModel : ViewModelBase
     {
-        public SupervisorDetailViewModel()
+        private readonly RepositoryManager _repositoryManager;
+        private int count;
+        public SupervisorDetailViewModel(int siteId)
         {
-            var supervisors = new List<Supervisor>() {
-                new Supervisor { SupervisorId= 1, SupervisorName = "nik", MonthlySalary= 5000, DutyDescription = "" } };
-            _supervisors = new ObservableCollection<Supervisor>(supervisors);
+            SiteId = siteId;
+            _repositoryManager = new RepositoryManager(new SqliteContext());
+            _supervisors = new ObservableCollection<Supervisor>(_repositoryManager.GetSupervisorsBySiteId(siteId));
+            count = _supervisors.Count;
             NameVisibility = Visibility.Hidden;
             SalaryVisibility = Visibility.Hidden;
             Add = new RelayCommand(AddSupervisorCommand);
@@ -64,7 +68,9 @@ namespace SiteManager.Core
         private void AddSupervisorCommand(object model)
         {
             var supervisorModel = model as Supervisor;
-
+            supervisorModel.SupervisorId = count = count + 1;
+            supervisorModel.SiteId = SiteId;
+            supervisorModel.CreatedDate = DateTime.Now;
             if (string.IsNullOrWhiteSpace(supervisorModel.SupervisorName))
             {
                 NameVisibility = Visibility.Visible;
@@ -75,7 +81,7 @@ namespace SiteManager.Core
                 SalaryVisibility = Visibility.Visible;
                 return;
             }
-
+            _repositoryManager.AddSupervisor(supervisorModel);
             _supervisors.Add(supervisorModel);
             SupervisorToAdd = new Supervisor();
         }
@@ -83,8 +89,11 @@ namespace SiteManager.Core
         private void DeleteSupervisorCommand(object model)
         {
             var supervisorModel = model as Supervisor;
-            if(OnMessageBoxEvent())
+            if (OnMessageBoxEvent())
+            {
                 _supervisors.Remove(supervisorModel);
+                _repositoryManager.DeleteSupervisor(supervisorModel);
+            }
         }
     }
 }
