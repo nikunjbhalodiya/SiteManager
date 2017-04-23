@@ -21,7 +21,8 @@ namespace SiteManager.Repository
         Repository<ContractorEntity> _contractorRepo;
         Repository<WorkTypeEntity> _workTypeRepo;
         Repository<LabourEntity> _labourRepo;
-
+        Repository<MaterialTypeEntity> _materialTypeRepo;
+        Repository<UnitEntity> _unitTypeRepo;
         public RepositoryManager(SqliteContext context)
         {
             _context = context;
@@ -33,6 +34,8 @@ namespace SiteManager.Repository
             _contractorRepo = new Repository<ContractorEntity>(_context);
             _workTypeRepo = new Repository<WorkTypeEntity>(_context);
             _labourRepo = new Repository<LabourEntity>(_context);
+            _materialTypeRepo = new Repository<MaterialTypeEntity>(_context);
+            _unitTypeRepo = new Repository<UnitEntity>(_context);
         }
 
         public IEnumerable<SiteModel> GetSites()
@@ -113,20 +116,28 @@ namespace SiteManager.Repository
         }
 
 
-        public Dictionary<int, string> GetMaterialTypes()
+        public IEnumerable<MaterialType> GetMaterialTypes()
         {
-            var repo = new Repository<MaterialTypeEntity>(_context);
-            var list = repo.GetAll().ToDictionary(x => x.MaterialTypeId, x => x.MaterialTypeName);
-            list.Add(0, "Select");
-            return list.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            return _materialTypeRepo.GetAll().Select(x => new MaterialType { MaterialTypeId = x.MaterialTypeId, MaterialTypeName = x.MaterialTypeName  });
         }
 
-        public Dictionary<int, string> GetUnitsOfMaterial()
+        public IEnumerable<QuantityUnitType> GetUnitsOfMaterial()
         {
-            var repo = new Repository<UnitEntity>(_context);
-            var list = repo.GetAll().ToDictionary(x => x.UnitId, x => x.UnitName);
-            list.Add(0, "Select");
-            return list.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+            return _unitTypeRepo.GetAll().Select(x => new QuantityUnitType { UnitId = x.UnitId, UnitName = x.UnitName });
+        }
+
+        public void AddMaterialType(MaterialType materialType)
+        {
+            var entity = new MaterialTypeEntity { MaterialTypeId = materialType.MaterialTypeId, MaterialTypeName = materialType.MaterialTypeName };
+            _materialTypeRepo.Add(entity);
+            _materialTypeRepo.Save();
+        }
+
+        public void AddUnitType(QuantityUnitType unit)
+        {
+            var entity = new UnitEntity { UnitId = unit.UnitId, UnitName = unit.UnitName };
+            _unitTypeRepo.Add(entity);
+            _unitTypeRepo.Save();
         }
 
         public IEnumerable<Vendor> GetVendorBySiteId(int siteId)

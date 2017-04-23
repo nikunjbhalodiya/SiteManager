@@ -13,31 +13,61 @@ namespace SiteManager.Core
     public class MaterialViewModel : ViewModelBase
     {
         private readonly RepositoryManager _repositoryManager;
-        private int _materialcount;
-        private int _vendorCount;
+        
         public MaterialViewModel(int siteId)
         {
             _repositoryManager = new RepositoryManager(new SqliteContext());
             SiteId = siteId;
-            _materialTypes = _repositoryManager.GetMaterialTypes();
-            _units = _repositoryManager.GetUnitsOfMaterial();
+            _materialTypes =  ProcessMaterialTypes(_repositoryManager.GetMaterialTypes());
+            _units = ProcessUnitType( _repositoryManager.GetUnitsOfMaterial());
             var vendors = _repositoryManager.GetVendorBySiteId(SiteId);
             var materials = _repositoryManager.GetMaterialBySiteId(SiteId).ToList();
            
-            IsVendorGridEnabled = false;
             VendorToAdd = new Vendor();
             MaterialToAdd = new Material();
             AddVendor = new RelayCommand(AddVendorCommand);
             AddMaterial = new RelayCommand(AddMaterialCommand);
+            AddMaterialType = new RelayCommand(AddMaterialTypeCmd);
+            AddUnitType = new RelayCommand(AddUnitTypeCmd);
             DeleteVendor = new RelayCommand(DeleteVendorCommand);
             _vendors = new ObservableCollection<Vendor>(vendors);
             _materials = new ObservableCollection<Material>(materials);
-            VendorList = new ObservableCollection<VendorKeyValue>(Vendors.Select(x => new VendorKeyValue() { VendorId = x.VendorId, VendorName = x.VendorName }));
-            VendorList.Add(new VendorKeyValue { VendorId = 0, VendorName = "Select" });
-            VendorList = new ObservableCollection<VendorKeyValue>(VendorList.OrderBy(x => x.VendorId));
-            _materialcount = _materials.Any() ? _materials.Last().MaterialDetailId : 0;
-            _vendorCount = _vendors.Any() ? _vendors.Last().VendorId : 0;
+            VendorList = ProcessVendors(vendors);
             SelectedVendor = new VendorKeyValue();
+            MaterialToAdd.SelectedMaterialType = MaterialTypes.First();
+            MaterialToAdd.SelectedUnit = Units.First();
+            MaterialTypeToAdd = new MaterialType();
+            UnitTypeToAdd = new QuantityUnitType();
+        }
+
+        private void AddUnitTypeCmd(object obj)
+        {
+            var unitType = obj as QuantityUnitType;
+            if (string.IsNullOrWhiteSpace(unitType.UnitName))
+            {
+                return;
+            }
+            _repositoryManager.AddUnitType(unitType);
+
+            UnitTypeToAdd = new QuantityUnitType();
+            Units = ProcessUnitType(_repositoryManager.GetUnitsOfMaterial());
+            MaterialToAdd.SelectedUnit = Units.First();
+            OnPropertyChanged(nameof(MaterialToAdd));
+        }
+
+        private void AddMaterialTypeCmd(object obj)
+        {
+            var materialType = obj as MaterialType;
+            if (string.IsNullOrWhiteSpace(materialType.MaterialTypeName))
+            {
+                return;
+            }
+            _repositoryManager.AddMaterialType(materialType);
+
+            MaterialTypeToAdd = new MaterialType();
+            MaterialTypes = ProcessMaterialTypes(_repositoryManager.GetMaterialTypes());
+            MaterialToAdd.SelectedMaterialType = MaterialTypes.First();
+            OnPropertyChanged(nameof(MaterialToAdd));
         }
 
         private void DeleteVendorCommand(object model)
@@ -77,22 +107,23 @@ namespace SiteManager.Core
             }
         }
 
+        private ObservableCollection<QuantityUnitType> _units;
 
-        private Dictionary<int, string> _materialTypes;
+        public ObservableCollection<QuantityUnitType> Units
+        {
+            get { return _units; }
+            set { _units = value; OnPropertyChanged(nameof(Units)); }
+        }
 
-        public Dictionary<int, string> MaterialTypes
+        private ObservableCollection<MaterialType> _materialTypes;
+
+        public ObservableCollection<MaterialType> MaterialTypes
         {
             get { return _materialTypes; }
             set { _materialTypes = value; OnPropertyChanged(nameof(MaterialTypes)); }
         }
 
-        private Dictionary<int, string> _units;
 
-        public Dictionary<int, string> Units
-        {
-            get { return _units; }
-            set { _units = value; OnPropertyChanged(nameof(Units)); }
-        }
 
         private ObservableCollection<Material> _materials;
 
@@ -120,20 +151,20 @@ namespace SiteManager.Core
                 || material.Quantity <= 0
                 || string.IsNullOrWhiteSpace(material.BillNumber)
                 || material.SelectedVendor.VendorId == 0
-                || material.SelectedMaterialType.Key == 0
-                || material.SelectedUnit.Key == 0)
+                || material.SelectedMaterialType.MaterialTypeId == 0
+                || material.SelectedUnit.UnitId == 0)
             {
                 return;
             }
             material.SiteId = SiteId;
             material.CreatedDate = DateTime.Now;
-            material.MaterialDetailId = _materialcount = _materialcount + 1;
             _repositoryManager.AddMaterial(material);
-            _materials.Add(material);
+            Materials = new ObservableCollection<Material>(_repositoryManager.GetMaterialBySiteId(SiteId));
             MaterialToAdd = new Material();
             MaterialToAdd.SelectedUnit = Units.First();
             SelectedVendor = VendorList.First();
             MaterialToAdd.SelectedMaterialType = MaterialTypes.First();
+            OnPropertyChanged(nameof(MaterialToAdd));
         }
 
         private void AddVendorCommand(object model)
@@ -144,12 +175,13 @@ namespace SiteManager.Core
                 return;
             }
             vendor.CreatedDate = DateTime.Now;
-            vendor.VendorId = _vendorCount = _vendorCount + 1;
-            Vendors.Add(vendor);
             _repositoryManager.AddVendor(vendor);
+            var list = _repositoryManager.GetVendorBySiteId(SiteId);
+            Vendors =  new ObservableCollection<Vendor>(list);
             VendorToAdd = new Vendor();
-            VendorList.Add(new VendorKeyValue { VendorId = vendor.VendorId, VendorName =vendor.VendorName });
-            IsVendorGridEnabled = false;
+            VendorList = ProcessVendors(list);
+            SelectedVendor = VendorList.First();
+            OnPropertyChanged(nameof(SelectedVendor));
         }
 
         public RelayCommand AddVendor { get; set; }
@@ -158,6 +190,10 @@ namespace SiteManager.Core
         public RelayCommand DeleteMaterial { get; set; }
 
         public RelayCommand DeleteVendor { get; set; }
+
+        public RelayCommand AddMaterialType { get; set; }
+
+        public RelayCommand AddUnitType { get; set; }
 
         private Vendor _vendorToAdd;
 
@@ -175,12 +211,42 @@ namespace SiteManager.Core
             set { _materialToAdd = value; OnPropertyChanged(nameof(MaterialToAdd)); }
         }
 
-        private bool _isVendorGridEnabled;
+        private MaterialType _materialTypeToAdd;
 
-        public bool IsVendorGridEnabled
+        public MaterialType MaterialTypeToAdd
         {
-            get { return _isVendorGridEnabled; }
-            set { _isVendorGridEnabled = value; OnPropertyChanged(nameof(IsVendorGridEnabled)); }
+            get { return _materialTypeToAdd; }
+            set { _materialTypeToAdd = value; OnPropertyChanged(nameof(MaterialTypeToAdd)); }
+        }
+
+        private QuantityUnitType _unitTypeToAdd;
+
+        public QuantityUnitType UnitTypeToAdd
+        {
+            get { return _unitTypeToAdd; }
+            set { _unitTypeToAdd = value; OnPropertyChanged(nameof(UnitTypeToAdd)); }
+        }
+
+
+        private ObservableCollection<MaterialType> ProcessMaterialTypes(IEnumerable<MaterialType> materialTypes)
+        {
+            var list = new List<MaterialType> { new MaterialType { MaterialTypeId = 0, MaterialTypeName = "Select" } };
+            list.AddRange(materialTypes);
+            return new ObservableCollection<MaterialType>(list);
+        }
+
+        private ObservableCollection<QuantityUnitType> ProcessUnitType(IEnumerable<QuantityUnitType> unitTypes)
+        {
+            var list = new List<QuantityUnitType> { new QuantityUnitType { UnitId = 0, UnitName = "Select" } };
+            list.AddRange(unitTypes);
+            return new ObservableCollection<QuantityUnitType>(list);
+        }
+
+        private ObservableCollection<VendorKeyValue> ProcessVendors(IEnumerable<Vendor> vendors)
+        {
+            var list = new List<VendorKeyValue> { new VendorKeyValue { VendorId = 0, VendorName = "Select" } };
+            list.AddRange(vendors.Select(x => new VendorKeyValue { VendorId = x.VendorId, VendorName = x.VendorName  }));
+            return new ObservableCollection<VendorKeyValue>(list);
         }
     }
 }

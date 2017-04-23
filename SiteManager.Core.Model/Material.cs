@@ -14,11 +14,11 @@ namespace SiteManager.Core.Model
         }
         public int MaterialDetailId { get; set; }
 
-        public KeyValuePair<int, string> SelectedMaterialType { get; set; }
+        public MaterialType SelectedMaterialType { get; set; }
 
         public Vendor SelectedVendor { get; set; }
 
-        public KeyValuePair<int, string> SelectedUnit { get; set; }
+        public QuantityUnitType SelectedUnit { get; set; }
 
         public string BillNumber { get; set; }
 

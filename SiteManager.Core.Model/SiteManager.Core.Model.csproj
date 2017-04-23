@@ -47,8 +47,10 @@
     <Compile Include="EntityType.cs" />
     <Compile Include="Labour.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="MaterialType.cs" />
     <Compile Include="PaymentMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuantityUnitType.cs" />
     <Compile Include="SiteModel.cs" />
     <Compile Include="Supervisor.cs" />
     <Compile Include="Vendor.cs" />

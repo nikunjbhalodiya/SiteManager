@@ -90,27 +90,5 @@ namespace SiteManager
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
                 lblAddressErrMsg.Visibility = Visibility.Visible;
         }
-
-        private void btnAddVendor_Click(object sender, RoutedEventArgs e)
-        {
-            VenorGrid.IsEnabled = true;
-        }
-
-        private void btnAddVendorDetail_Click(object sender, RoutedEventArgs e)
-        {
-            VenorGrid.IsEnabled = _viewModel.IsVendorGridEnabled;
-        }
-
-        //private void cmbQtyUnits_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    var combo = sender as ComboBox;
-        //    combo.SelectedIndex = 0;
-        //}
-
-        //private void cmbMaterialType_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    var combo = sender as ComboBox;
-        //    combo.SelectedIndex = 0;
-        //}
     }
 }

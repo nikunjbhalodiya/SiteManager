@@ -49,6 +49,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="SiteInformationViewModel.cs" />
     <Compile Include="SupervisorDetailViewModel.cs" />
+    <Compile Include="TempModel\ContractorKeyValue.cs" />
     <Compile Include="TempModel\VendorKeyValue.cs" />
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>

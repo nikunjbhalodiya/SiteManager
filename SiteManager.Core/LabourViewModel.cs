@@ -1,5 +1,6 @@
 ﻿using SiteManager.Core.Command;
 using SiteManager.Core.Model;
+using SiteManager.Core.TempModel;
 using SiteManager.Repository;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,9 @@ namespace SiteManager.Core
         {
             SiteId = siteId;
             _repositoryManager = new RepositoryManager(new SqliteContext());
-            var contractors = _repositoryManager.GetContractors().ToList();
-            var workTypes = _repositoryManager.GetWorkTypes().ToList();
-            _workTypes = new ObservableCollection<WorkType>();
-            _labours = new ObservableCollection<Labour>();
+            var contractors = _repositoryManager.GetContractors();
+            var workTypes = _repositoryManager.GetWorkTypes();
+
             AddContractor = new RelayCommand(AddContractorCmd);
             AddWorkType = new RelayCommand(AddWorkTypeCmd);
             AddLabour = new RelayCommand(AddLabourCmd);
@@ -31,10 +31,11 @@ namespace SiteManager.Core
             LabourToAdd = new Labour();
             DeleteContractor = new RelayCommand(DeleteContractorCmd);
             DeleteWorkType = new RelayCommand(DeleteWorkTypecmd);
-            contractors.Insert(0, new Contractor { ContractorId = 0, ContractorName = "Select" });
-            workTypes.Insert(0, new WorkType { WorkTypeId = 0, WorkTypeName = "Select" });
-            _workTypes = new ObservableCollection<WorkType>(workTypes.OrderBy(x => x.WorkTypeId));
-            _contractors = new ObservableCollection<Contractor>(contractors.OrderBy(x => x.ContractorId));
+            
+            
+            _contractors = new ObservableCollection<Contractor>(contractors);
+            ContractorList = ProcessContractorList(contractors);
+            _workTypes = ProcessWorkTypeKeyValue(workTypes);
             _labours = new ObservableCollection<Labour>(_repositoryManager.GetLabourPayments(SiteId));
         }
 
@@ -57,8 +58,9 @@ namespace SiteManager.Core
             var labour = model as Labour;
             labour.SiteId = SiteId;
             labour.CreateDate = DateTime.Now;
+            labour.Contractor = Contractors.Single(x => x.ContractorId == SelectedContractor.ContractorId);
 
-            if (labour.Payment < 1 || labour.PaymentDate == default(DateTime) || string.IsNullOrWhiteSpace(labour.Contractor.ContractorName) || string.IsNullOrWhiteSpace(labour.WorkType.WorkTypeName))
+            if (labour.Payment < 1 || labour.PaymentDate == default(DateTime) || labour.Contractor.ContractorId == 0 || labour.WorkType.WorkTypeId == 0)
             {
                 return;
             }
@@ -79,10 +81,12 @@ namespace SiteManager.Core
                 return;
             }
 
-            //_workTypes.Add(worktype);
             _repositoryManager.AddWorkType(worktype);
             WorkTypeToAdd = new WorkType();
-            WorkTypes = new ObservableCollection<WorkType>(_repositoryManager.GetWorkTypes());
+            var works = _repositoryManager.GetWorkTypes();
+            WorkTypes = ProcessWorkTypeKeyValue(works);
+            LabourToAdd.WorkType = WorkTypes.First();
+            OnPropertyChanged(nameof(LabourToAdd));
         }
 
         private void AddContractorCmd(object model)
@@ -95,10 +99,28 @@ namespace SiteManager.Core
                 return;
             }
 
-            //_contractors.Add(contractor);
             _repositoryManager.AddContractor(contractor);
             ContractorToAdd = new Contractor();
-            Contractors = new ObservableCollection<Contractor>(_repositoryManager.GetContractors());
+            var con = _repositoryManager.GetContractors();
+            Contractors = new ObservableCollection<Contractor>(con);
+            ContractorList = ProcessContractorList(con);
+            SelectedContractor = ContractorList.First();
+        }
+
+        private ObservableCollection<ContractorKeyValue> _contractorList;
+
+        public ObservableCollection<ContractorKeyValue> ContractorList
+        {
+            get { return _contractorList; }
+            set { _contractorList = value; OnPropertyChanged(nameof(ContractorList)); }
+        }
+
+        private ContractorKeyValue _selectedContractor;
+
+        public ContractorKeyValue SelectedContractor
+        {
+            get { return _selectedContractor; }
+            set { _selectedContractor = value; OnPropertyChanged(nameof(SelectedContractor)); }
         }
 
         private ObservableCollection<Labour> _labours;
@@ -170,6 +192,21 @@ namespace SiteManager.Core
         public RelayCommand DeleteContractor { get; set; }
 
         public RelayCommand DeleteWorkType { get; set; }
+
+        private ObservableCollection<ContractorKeyValue> ProcessContractorList(IEnumerable<Contractor> contractorList)
+        {
+            var list = new List<ContractorKeyValue>() { new ContractorKeyValue { ContractorId = 0, ContractorName = "Select" } };
+            list.AddRange(contractorList.Select(x => 
+            new ContractorKeyValue { ContractorId = x.ContractorId, ContractorName = x.ContractorName }));
+            return new ObservableCollection<ContractorKeyValue>(list);
+        }
+
+        private ObservableCollection<WorkType> ProcessWorkTypeKeyValue(IEnumerable<WorkType> workTypeList)
+        {
+            var list = new List<WorkType>() { new WorkType { WorkTypeId = 0, WorkTypeName = "Select" } };
+            list.AddRange(workTypeList);
+            return new ObservableCollection<WorkType>(list);
+        }
 
     }
 }

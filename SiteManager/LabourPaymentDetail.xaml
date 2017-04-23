@@ -46,14 +46,14 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Contractor Name :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <ComboBox x:Name="cmbContractor"  Style="{StaticResource ComboStyle}" Loaded="cmbContractor_Loaded" ItemsSource="{Binding Contractors}" SelectedItem="{Binding LabourToAdd.Contractor, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="ContractorName" SelectedValuePath="ContractorId"  Width="240"></ComboBox>
-                    <Button x:Name="btnContractor" Content="Add Contractor" Click="btnContractor_Click" Height="25" Width="90" Margin="10" />
+                    <ComboBox x:Name="cmbContractor"  Style="{StaticResource ComboStyle}" Loaded="cmbContractor_Loaded" ItemsSource="{Binding ContractorList}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="ContractorName" SelectedValuePath="ContractorId"  Width="350"></ComboBox>
+                    <!--<Button x:Name="btnContractor" Content="Add Contractor" Click="btnContractor_Click" Height="25" Width="90" Margin="10" />-->
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Type :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                    <ComboBox x:Name="cmbWrokType"  Style="{StaticResource ComboStyle}" ItemsSource="{Binding WorkTypes}" Loaded="cmbWrokType_Loaded" SelectedItem="{Binding LabourToAdd.WorkType, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="WorkTypeName" SelectedValuePath="WorkTypeId"  Width="240"></ComboBox>
-                    <Button x:Name="btnAddWorkType" Content="Add Work Type" Height="25" Width="90" Margin="10" Click="btnAddWorkType_Click" />
+                    <ComboBox x:Name="cmbWrokType"  Style="{StaticResource ComboStyle}" ItemsSource="{Binding WorkTypes}" Loaded="cmbWrokType_Loaded" SelectedItem="{Binding LabourToAdd.WorkType, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="WorkTypeName" SelectedValuePath="WorkTypeId"  Width="350"></ComboBox>
+                    <!--<Button x:Name="btnAddWorkType" Content="Add Work Type" Height="25" Width="90" Margin="10" Click="btnAddWorkType_Click" />-->
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Detail :</Label>
@@ -76,7 +76,7 @@
             <Label Style="{StaticResource PageHeaderStyle}">Contractor Detail</Label>
         </Border>
         <Border Grid.Row="2" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
-            <Grid x:Name="ContractorGrid" IsEnabled="False">
+            <Grid x:Name="ContractorGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10" />
                     <RowDefinition Height="Auto" />
@@ -97,100 +97,121 @@
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Detail:</Label>
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ContractorToAdd.Detail, Mode=TwoWay }" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
-                <Button x:Name="btnAddContractor" Click="btnAddContractor_Click" Grid.Row="3" Margin="10" Command="{Binding AddContractor}" CommandParameter="{Binding ContractorToAdd}" Grid.Column="1" Height="30" Width="150" Content="Add Contractor" HorizontalAlignment="Left"></Button>
+                <Button x:Name="btnAddContractor" Grid.Row="3" Margin="10" Command="{Binding AddContractor}" CommandParameter="{Binding ContractorToAdd}" Grid.Column="1" Height="30" Width="150" Content="Add Contractor" HorizontalAlignment="Left"></Button>
 
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
-                    <ListView x:Name="ContractorlistView" Margin="10" ItemsSource="{Binding Contractors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ListView x:Name="ContractorlistView" Margin="10" Height="200"  ItemsSource="{Binding Contractors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding ContractorName}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Detail">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Detail}"  TextWrapping="Wrap"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
+                                                Background="Transparent" 
+                                                Command="{Binding Path=DataContext.DeleteContractor, RelativeSource={RelativeSource FindAncestor, 
+                                            AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>-->
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <!--<Border Grid.Row="3" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
+            <Label Style="{StaticResource PageHeaderStyle}">Work Type Detail</Label>
+        </Border>-->
+        <Border Grid.Row="3" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
+            <StackPanel>
+                <Label Style="{StaticResource HeaderStyle}">Work Type Detail</Label>
+                <Grid x:Name="WorkTypeGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Name:</Label>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                        <TextBox x:Name="txtWorkName" GotFocus="txtWorkName_GotFocus" LostFocus="txtWorkName_LostFocus" Text="{Binding WorkTypeToAdd.WorkTypeName, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                        <Label x:Name="lblWorkNameErrMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Work type required.</Label>
+                        <Button x:Name="addWorkType" Command="{Binding AddWorkType}" CommandParameter="{Binding WorkTypeToAdd}" Margin="10" Height="30" Width="150" Content="Add Work Type" HorizontalAlignment="Left"></Button>
+                    </StackPanel>
+                    <!--<ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+                    <ListView x:Name="WorkTypelistView"  Margin="10" ItemsSource="{Binding WorkTypes}"  Height="200" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding ContractorName}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Detail">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Detail}"  TextWrapping="Wrap"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-
-                                <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Type"  DisplayMemberBinding="{Binding WorkTypeName}" />
+                                -->
+                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
                                                 Background="Transparent" 
-                                                Command="{Binding Path=DataContext.DeleteContractor, RelativeSource={RelativeSource FindAncestor, 
+                                                Command="{Binding Path=DataContext.DeleteWorkType, RelativeSource={RelativeSource FindAncestor, 
                                             AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>-->
+                    <!--
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>-->
+                </Grid>
+            </StackPanel>
+        </Border>
+        <!--<Border Grid.Row="3" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
+            <Label Style="{StaticResource PageHeaderStyle}">Labour Payment Information</Label>
+        </Border>-->
+
+        <Border Grid.Row="3" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
+            <StackPanel>
+                <Label Style="{StaticResource HeaderStyle}">Labour Payment Information</Label>
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+                    <ListView x:Name="LabourlistView" Margin="10" Height="200" ItemsSource="{Binding Labours}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Contractor"  DisplayMemberBinding="{Binding Contractor.ContractorName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Type"  DisplayMemberBinding="{Binding WorkType.WorkTypeName}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment"  DisplayMemberBinding="{Binding Payment}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment Date"  DisplayMemberBinding="{Binding PaymentDate, StringFormat='dd/MM/yyyy'}" />
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Detail">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding WorkDetail}"  TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Remark">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Remark}"  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </StackPanel>
-            </Grid>
-        </Border>
-        <Border Grid.Row="3" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
-            <Label Style="{StaticResource PageHeaderStyle}">Work Type Detail</Label>
-        </Border>
-        <Border Grid.Row="4" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
-            <Grid x:Name="WorkTypeGrid" IsEnabled="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Name:</Label>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <TextBox x:Name="txtWorkName" GotFocus="txtWorkName_GotFocus" LostFocus="txtWorkName_LostFocus" Text="{Binding WorkTypeToAdd.WorkTypeName, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
-                    <Label x:Name="lblWorkNameErrMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Work type required.</Label>
-                </StackPanel>
-                <Button x:Name="addWorkType" Click="addWorkType_Click" Command="{Binding AddWorkType}" CommandParameter="{Binding WorkTypeToAdd}" Grid.Row="2" Margin="10" Grid.Column="1" Height="30" Width="150" Content="Add Wrok Type" HorizontalAlignment="Left"></Button>
-
-                <ListView x:Name="WorkTypelistView" Grid.Row="3" Grid.ColumnSpan="2" Margin="10" ItemsSource="{Binding WorkTypes}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Type"  DisplayMemberBinding="{Binding WorkTypeName}" />
-                            <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
-                                                Background="Transparent" 
-                                                Command="{Binding Path=DataContext.DeleteWorkType, RelativeSource={RelativeSource FindAncestor, 
-                                            AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </Grid>
-        </Border>
-        <Border Grid.Row="3" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
-            <Label Style="{StaticResource PageHeaderStyle}">Labour Payment Information</Label>
-        </Border>
-        <Border Grid.Row="4" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray">
-            <ListView x:Name="LabourlistView" Margin="10" ItemsSource="{Binding Labours}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Contractor"  DisplayMemberBinding="{Binding Contractor.ContractorName}" />
-                        <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Type"  DisplayMemberBinding="{Binding WorkType.WorkTypeName}" />
-                        <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment"  DisplayMemberBinding="{Binding Payment}" />
-                        <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment Date"  DisplayMemberBinding="{Binding PaymentDate, StringFormat='dd/MM/yyyy'}" />
-                        <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Work Detail">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding WorkDetail}"  TextWrapping="Wrap"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                </ScrollViewer>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>

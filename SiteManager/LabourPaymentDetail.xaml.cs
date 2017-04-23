@@ -69,25 +69,25 @@ namespace SiteManager
             }
         }
 
-        private void btnContractor_Click(object sender, RoutedEventArgs e)
-        {
-            ContractorGrid.IsEnabled = true;
-        }
+        //private void btnContractor_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ContractorGrid.IsEnabled = true;
+        //}
 
-        private void btnAddWorkType_Click(object sender, RoutedEventArgs e)
-        {
-            WorkTypeGrid.IsEnabled = true;
-        }
+        //private void btnAddWorkType_Click(object sender, RoutedEventArgs e)
+        //{
+        //    WorkTypeGrid.IsEnabled = true;
+        //}
 
-        private void btnAddContractor_Click(object sender, RoutedEventArgs e)
-        {
-            ContractorGrid.IsEnabled = false;
-        }
+        //private void btnAddContractor_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ContractorGrid.IsEnabled = false;
+        //}
 
-        private void addWorkType_Click(object sender, RoutedEventArgs e)
-        {
-            WorkTypeGrid.IsEnabled = false;
-        }
+        //private void addWorkType_Click(object sender, RoutedEventArgs e)
+        //{
+        //    WorkTypeGrid.IsEnabled = false;
+        //}
 
         private static bool IsTextAllowed(string text)
         {
