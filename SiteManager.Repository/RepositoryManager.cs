@@ -216,5 +216,20 @@ namespace SiteManager.Repository
             _contractorRepo.Add(entity);
             _contractorRepo.Save();
         }
+
+        public IEnumerable<EntityType> GetPaymentEntity()
+        {
+            var paymentEntityRepo = new Repository<PaymentEntity>(_context);
+            var list = paymentEntityRepo.GetAll();
+            var model = list.Select(x => new EntityType { EntityId = x.EntityId, EntityName = x.EntityName }).ToList();
+            model.Insert(0, new EntityType { EntityId = 0, EntityName = "Select" });
+            return model;
+        }
+
+        public IEnumerable<PaymentMode> GetPaymentMode()
+        {
+            var paymentEntityRepo = new Repository<PaymentModeEntity>(_context);
+            return paymentEntityRepo.GetAll().Select(x => new PaymentMode { PaymentModeId = x.PaymentModeId, Content = x.PaymentModeName });
+        }
     }
 }

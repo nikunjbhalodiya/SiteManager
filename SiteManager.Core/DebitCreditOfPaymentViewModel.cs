@@ -1,5 +1,6 @@
 ﻿using SiteManager.Core.Command;
 using SiteManager.Core.Model;
+using SiteManager.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,16 +13,20 @@ namespace SiteManager.Core
 {
     public class DebitCreditOfPaymentViewModel : ViewModelBase
     {
-        public DebitCreditOfPaymentViewModel()
+        private readonly RepositoryManager _repositoryManager;
+        private readonly Entity _entity;
+        public DebitCreditOfPaymentViewModel(Entity entity)
         {
+            _entity = entity;
+            _repositoryManager = new RepositoryManager(new SqliteContext());
             PaymentToAdd = new DebitCreditOfPayment();
             Add = new RelayCommand(AddCommand);
             Search = new RelayCommand(SearchCommand);
             PaymentGridVisibility = Visibility.Hidden;
             EntityGridVisibility = Visibility.Hidden;
-            _entityTypes = new List<EntityType> { new EntityType { EntityId=0, EntityName="Select" }, new EntityType { EntityId=1, EntityName="Customer" }, new EntityType { EntityId =2, EntityName= "Material" } };
-            _paymentModes = new List<PaymentMode> { new PaymentMode { Content = "Cash", IsSelected=false }, new PaymentMode { Content="Cheque", IsSelected=false }, new PaymentMode { Content="Loan", IsSelected=false } };
-            _entities = new ObservableCollection<Entity>();
+            _entityTypes = _repositoryManager.GetPaymentEntity().ToList();
+            _paymentModes = _repositoryManager.GetPaymentMode().ToList();
+            _entities = new ObservableCollection<Entity>(new List<Entity> { _entity });
             EntityClick = new RelayCommand(EntityClickCmd);
 
         }

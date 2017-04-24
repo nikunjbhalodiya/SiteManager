@@ -8,6 +8,10 @@ namespace SiteManager.Core.Model
 {
     public class Entity
     {
+        public int EntityId { get; set; }
+
+        public int EntityTypeId { get; set; }
+
         public string Name { get; set; }
 
         public DateTime Date { get; set; }

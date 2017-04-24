@@ -1,4 +1,5 @@
 ﻿using SiteManager.Core;
+using SiteManager.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,18 @@ namespace SiteManager
             if (string.IsNullOrWhiteSpace(txtHouseNumber.Text))
             {
                 lblHouseNumberErrMsg.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+
+                var cust = item.Content as Customer;
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = cust.CustomerId, EntityTypeId = 1, Name = cust.CustomerName, Date = cust.CreatedDate, TotalAmount = cust.TotalCost  });
+                debitCredit.ShowDialog();
             }
         }
     }

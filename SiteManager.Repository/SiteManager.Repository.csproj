@@ -72,6 +72,8 @@
     <Compile Include="Entities\LabourEntity.cs" />
     <Compile Include="Entities\MaterialEntity.cs" />
     <Compile Include="Entities\MaterialTypeEntity.cs" />
+    <Compile Include="Entities\PaymentEntity.cs" />
+    <Compile Include="Entities\PaymentModeEntity.cs" />
     <Compile Include="Entities\SiteEntity.cs" />
     <Compile Include="Entities\SupervisorEntity.cs" />
     <Compile Include="Entities\UnitEntity.cs" />

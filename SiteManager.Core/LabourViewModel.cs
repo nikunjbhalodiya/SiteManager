@@ -32,7 +32,6 @@ namespace SiteManager.Core
             DeleteContractor = new RelayCommand(DeleteContractorCmd);
             DeleteWorkType = new RelayCommand(DeleteWorkTypecmd);
             
-            
             _contractors = new ObservableCollection<Contractor>(contractors);
             ContractorList = ProcessContractorList(contractors);
             _workTypes = ProcessWorkTypeKeyValue(workTypes);

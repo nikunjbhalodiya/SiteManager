@@ -9,7 +9,7 @@
         Background="WhiteSmoke"
         Title="Site Detail">
     <Grid>
-        <TabControl TabStripPlacement="Left">
+        <TabControl x:Name="siteDetailTab" TabStripPlacement="Left">
             <TabItem Header="Customer Detail" Height="30">
                 <Frame Source="CustomerDetail.xaml"   />
             </TabItem>
@@ -22,9 +22,9 @@
             <TabItem Header="Labour Payment Detail" Height="30">
                 <Frame Source="LabourPaymentDetail.xaml"  />
             </TabItem>
-            <TabItem Header="Credit/Debit Detail" Height="30">
+            <!--<TabItem Header="Credit/Debit Detail" Height="30">
                 <Frame Source="CreditDebitDetail.xaml"  />
-            </TabItem>
+            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>
