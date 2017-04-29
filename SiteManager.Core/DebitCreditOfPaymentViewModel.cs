@@ -14,10 +14,11 @@ namespace SiteManager.Core
     public class DebitCreditOfPaymentViewModel : ViewModelBase
     {
         private readonly RepositoryManager _repositoryManager;
-        private readonly Entity _entity;
+        private Entity _entity;
         public DebitCreditOfPaymentViewModel(Entity entity)
         {
             _entity = entity;
+            SiteId = _entity.SiteId;
             _repositoryManager = new RepositoryManager(new SqliteContext());
             PaymentToAdd = new DebitCreditOfPayment();
             Add = new RelayCommand(AddCommand);
@@ -26,56 +27,74 @@ namespace SiteManager.Core
             EntityGridVisibility = Visibility.Hidden;
             _entityTypes = _repositoryManager.GetPaymentEntity().ToList();
             _paymentModes = _repositoryManager.GetPaymentMode().ToList();
-            _entities = new ObservableCollection<Entity>(new List<Entity> { _entity });
             EntityClick = new RelayCommand(EntityClickCmd);
+            EntityGridVisibility = Visibility.Visible;
 
+            _entities = new ObservableCollection<Entity>(new List<Entity> { _entity });
+            SelectedEntity = _entityTypes.Single(x => x.EntityTypeId == _entity.EntityTypeId);
+            EntityGridHeading = SelectedEntity.EntityTypeName + " Detail";
+            GetPaymentSummary();
         }
 
         private void EntityClickCmd(object obj)
         {
             var entity = obj as Entity;
-            PaymentGridVisibility = Visibility.Visible;
-            PaymentGridHeading = entity.Name + " Payment Detail";
-            PaymentDetails = new ObservableCollection<DebitCreditOfPayment>(new List<DebitCreditOfPayment> { new DebitCreditOfPayment { Name="Nikunj", PaymentDate= DateTime.Today, SelectedMode= new PaymentMode { Content ="Cash" }, CreditAmount= 1000000, DebitAmount=1500000 } });
-            TotalAmount = entity.TotalAmount;
-            if (PaymentDetails.Count == 0)
-            {
-                CreditAmount = entity.TotalAmount;
-                return;
-            }
-            
-            CreditAmount = PaymentDetails.Last().CreditAmount;
+            _entity = entity;
+            GetPaymentSummary();
         }
 
         private void SearchCommand(object obj)
         {
-            if (string.IsNullOrWhiteSpace(SearchText) || SearchText.Length < 4 || SelectedEntity.EntityId == 0)
+            if (string.IsNullOrWhiteSpace(SearchText) || SearchText.Length < 4 || SelectedEntity.EntityTypeId == 0)
             {
                 return;
             }
 
+            PaymentGridVisibility = Visibility.Hidden; 
             EntityGridVisibility = Visibility.Visible;
-            EntityGridHeading = SelectedEntity.EntityName + " Detail";
+            EntityGridHeading = SelectedEntity.EntityTypeName + " Detail";
 
-            Entities = new ObservableCollection<Entity>(new List<Entity> { new Entity { Name="Nikunj", Date = DateTime.Today, TotalAmount=2500000 } });
+            Entities = new ObservableCollection<Entity>(_repositoryManager.SearchEntity(SelectedEntity.EntityTypeId, SearchText, SiteId));
+        }
 
+        private void GetPaymentSummary()
+        {
+            PaymentGridVisibility = Visibility.Visible;
+            PaymentGridHeading = _entity.Name + " Payment Detail";
+            PaymentDetails = new ObservableCollection<DebitCreditOfPayment>(_repositoryManager.GetDebitCreditListOfEntity(_entity));
+            
+            if (PaymentDetails.Count == 0)
+            {
+                AmountRemain = _entity.TotalAmount;
+                DebitAmount = _entity.TotalAmount;
+                return;
+            }
+
+            AmountRemain = PaymentDetails.Last().DebitAmount;
+            DebitAmount = PaymentDetails.Last().DebitAmount;
         }
 
         private void AddCommand(object obj)
         {
             var payment = obj as DebitCreditOfPayment;
+            payment.SiteId = SiteId;
             payment.CreditAmount = CreditAmount;
             payment.DebitAmount = DebitAmount;
-            if (string.IsNullOrWhiteSpace(payment.Name) || payment.DebitAmount < 1 || payment.SelectedMode == null || payment.PaymentDate == default(DateTime))
+            payment.EntityId = _entity.EntityId;
+            payment.EntityType = EntityTypes.Single(x => x.EntityTypeId == _entity.EntityTypeId);
+            
+            if (payment.CreditAmount < 1 || payment.SelectedMode == null || payment.PaymentDate == default(DateTime))
             {
                 return;
             }
 
-            _paymentDetails.Add(payment);
+            _repositoryManager.AddPaymentForEntity(payment);
+            PaymentDetails = new ObservableCollection<DebitCreditOfPayment>(_repositoryManager.GetDebitCreditListOfEntity(_entity));
             PaymentToAdd = new DebitCreditOfPayment();
+            CreditAmount = 0;
+            DebitAmount = payment.DebitAmount;
+            AmountRemain = DebitAmount;
         }
-
-        
 
         private ObservableCollection<DebitCreditOfPayment> _paymentDetails;
 
@@ -106,7 +125,7 @@ namespace SiteManager.Core
         public List<PaymentMode> PaymentModes
         {
             get { return _paymentModes; }
-            set { _paymentModes = value;  OnPropertyChanged(nameof(PaymentModes)); }
+            set { _paymentModes = value; OnPropertyChanged(nameof(PaymentModes)); }
         }
 
         private decimal _creditAmount;
@@ -114,7 +133,12 @@ namespace SiteManager.Core
         public decimal CreditAmount
         {
             get { return _creditAmount; }
-            set { _creditAmount = value; OnPropertyChanged(nameof(CreditAmount)); }
+            set
+            {
+                _creditAmount = value;
+                DebitAmount = AmountRemain - CreditAmount;
+                OnPropertyChanged(nameof(CreditAmount));
+            }
         }
 
         private decimal _debitAmount;
@@ -125,20 +149,18 @@ namespace SiteManager.Core
             set
             {
                 _debitAmount = value;
-                CreditAmount = TotalAmount - DebitAmount;
+
                 OnPropertyChanged(nameof(DebitAmount));
             }
         }
 
-        private decimal _totalAmount;
+        private decimal _amountRemain;
 
-        public decimal TotalAmount
+        public decimal AmountRemain
         {
-            get { return _totalAmount; }
-            set { _totalAmount = value; OnPropertyChanged(nameof(TotalAmount)); }
+            get { return _amountRemain; }
+            set { _amountRemain = value; OnPropertyChanged(nameof(AmountRemain)); }
         }
-
-
 
         private string _searchText;
 

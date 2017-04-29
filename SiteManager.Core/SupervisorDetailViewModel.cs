@@ -89,7 +89,7 @@ namespace SiteManager.Core
         private void DeleteSupervisorCommand(object model)
         {
             var supervisorModel = model as Supervisor;
-            if (OnMessageBoxEvent())
+            if (OnMessageBoxEvent("Do you want to delete supervisor?"))
             {
                 _supervisors.Remove(supervisorModel);
                 _repositoryManager.DeleteSupervisor(supervisorModel);

@@ -23,6 +23,7 @@ namespace SiteManager.Repository
         Repository<LabourEntity> _labourRepo;
         Repository<MaterialTypeEntity> _materialTypeRepo;
         Repository<UnitEntity> _unitTypeRepo;
+        Repository<DebitCreditEntity> _debitCreditRepo;
         public RepositoryManager(SqliteContext context)
         {
             _context = context;
@@ -36,6 +37,7 @@ namespace SiteManager.Repository
             _labourRepo = new Repository<LabourEntity>(_context);
             _materialTypeRepo = new Repository<MaterialTypeEntity>(_context);
             _unitTypeRepo = new Repository<UnitEntity>(_context);
+            _debitCreditRepo = new Repository<DebitCreditEntity>(_context);
         }
 
         public IEnumerable<SiteModel> GetSites()
@@ -221,15 +223,57 @@ namespace SiteManager.Repository
         {
             var paymentEntityRepo = new Repository<PaymentEntity>(_context);
             var list = paymentEntityRepo.GetAll();
-            var model = list.Select(x => new EntityType { EntityId = x.EntityId, EntityName = x.EntityName }).ToList();
-            model.Insert(0, new EntityType { EntityId = 0, EntityName = "Select" });
-            return model;
+            var model = list.Select(x => new EntityType { EntityTypeId = x.EntityTypeId, EntityTypeName = x.EntityTypeName }).ToList();
+            model.Insert(0, new EntityType { EntityTypeId = 0, EntityTypeName = "Select" });
+            return model.OrderBy(x => x.EntityTypeId);
         }
 
         public IEnumerable<PaymentMode> GetPaymentMode()
         {
             var paymentEntityRepo = new Repository<PaymentModeEntity>(_context);
             return paymentEntityRepo.GetAll().Select(x => new PaymentMode { PaymentModeId = x.PaymentModeId, Content = x.PaymentModeName });
+        }
+
+        public IEnumerable<DebitCreditOfPayment> GetDebitCreditListOfEntity(Entity entity)
+        {
+            var list = _debitCreditRepo.Find(x => x.EntityId == entity.EntityId 
+            && x.EntityTypeId == entity.EntityTypeId 
+            && x.SiteId == entity.SiteId);
+
+            var mapper = new DebitCreditMapper();
+            return mapper.Map(list.ToList());
+        }
+
+        public void AddPaymentForEntity(DebitCreditOfPayment paymentInfo)
+        {
+            var mapper = new DebitCreditMapper();
+            var entity = mapper.Map(paymentInfo);
+            _debitCreditRepo.Add(entity);
+            _debitCreditRepo.Save();
+        }
+
+        public IEnumerable<Entity> SearchEntity(int entityTypeId, string searchText, int siteId)
+        {
+            var entity = Enumerable.Empty<Entity>();
+            switch (entityTypeId)
+            {
+                case 1:
+                    var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()));
+                    entity = custEntity.Select(x => new Entity { EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost, SiteId = siteId });
+                    break;
+                case 2:
+                    var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()));
+                    entity = materialEntity.Select(x => new Entity { EntityId = x.MaterialId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.MaterialType.MaterialTypeName, TotalAmount = x.BillAmount, SiteId = siteId });
+                    break;
+                case 3:
+                    var supervisorEntity = _supervisorRepo.Find(x => x.SupervisorName.ToLower().Contains(searchText.ToLower()));
+                    entity = supervisorEntity.Select(x => new Entity { EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
+                    break;
+                default:
+                    throw new ArgumentException("Invalid entity type.");
+            }
+
+            return entity;
         }
     }
 }

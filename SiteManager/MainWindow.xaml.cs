@@ -29,9 +29,9 @@ namespace SiteManager
             
             _viewModel = new SiteInformationViewModel();
             DataContext = _viewModel;
-            _viewModel.MessageBoxEvent += () =>
+            _viewModel.MessageBoxEvent += (msg) =>
             {
-                var result = MessageBox.Show("Would you like to delete the site.", "Delete Site",MessageBoxButton.YesNo);
+                var result = MessageBox.Show(msg, "Delete Site",MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     return true;

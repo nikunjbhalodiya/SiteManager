@@ -16,16 +16,25 @@ namespace SiteManager.Core
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public event Func<bool> MessageBoxEvent;
+        public event Func<string, bool> MessageBoxEvent;
 
-        protected bool OnMessageBoxEvent()
+        protected bool OnMessageBoxEvent(string message)
         {
             if (MessageBoxEvent == null) {
                 return false;
             }
-            return MessageBoxEvent();
+            return MessageBoxEvent(message);
         }
 
         public int SiteId { get; set; }
+
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set { _errorMessage = value; }
+        }
+
     }
 }

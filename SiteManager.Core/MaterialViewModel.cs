@@ -74,7 +74,7 @@ namespace SiteManager.Core
         {
             var vendor = model as Vendor;
 
-            if (OnMessageBoxEvent())
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
             {
                 _repositoryManager.DeleteVendor(vendor);
                 _vendors.Remove(vendor);

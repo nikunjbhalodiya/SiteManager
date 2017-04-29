@@ -17,6 +17,7 @@ namespace SiteManager.Repository.Entities
             Customers = new List<CustomerEntity>();
             Materials = new List<MaterialEntity>();
             LaboursPayment = new List<LabourEntity>();
+            DebitCreditInfo = new List<DebitCreditEntity>();
         }
 
         [Key]
@@ -39,5 +40,7 @@ namespace SiteManager.Repository.Entities
         public virtual ICollection<MaterialEntity> Materials { get; set; }
 
         public virtual ICollection<LabourEntity> LaboursPayment { get; set; }
+
+        public virtual ICollection<DebitCreditEntity> DebitCreditInfo { get; set; }
     }
 }

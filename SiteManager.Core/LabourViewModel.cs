@@ -41,14 +41,14 @@ namespace SiteManager.Core
         private void DeleteWorkTypecmd(object obj)
         {
             var worktype = obj as WorkType;
-            if (OnMessageBoxEvent())
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
                 WorkTypes.Remove(worktype);
         }
 
         private void DeleteContractorCmd(object obj)
         {
             var contractor = obj as Contractor;
-            if (OnMessageBoxEvent())
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
                 _contractors.Remove(contractor);
         }
 

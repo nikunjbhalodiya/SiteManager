@@ -115,11 +115,11 @@
                                 </GridViewColumn>-->
                                 </GridView>
                             </ListView.View>
-                            <!--<ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
-                            </Style>
-                        </ListView.ItemContainerStyle>-->
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
                         </ListView>
                     </ScrollViewer>
                 </StackPanel>

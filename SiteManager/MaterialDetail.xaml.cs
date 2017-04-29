@@ -1,4 +1,5 @@
 ﻿using SiteManager.Core;
+using SiteManager.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,9 @@ namespace SiteManager
             InitializeComponent();
             _viewModel = new MaterialViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
-            _viewModel.MessageBoxEvent += () =>
+            _viewModel.MessageBoxEvent += (msg) =>
             {
-                var result = MessageBox.Show("Would you like to delete it?", "Delete", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(msg, "Delete", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     return true;
@@ -89,6 +90,18 @@ namespace SiteManager
         {
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
                 lblAddressErrMsg.Visibility = Visibility.Visible;
+        }
+
+        private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+
+                var material = item.Content as Material;
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = material.MaterialDetailId, EntityTypeId = 2, Name = material.SelectedMaterialType.MaterialTypeName, Date = material.CreatedDate, TotalAmount = material.BillAmount, SiteId = SiteDetail.SiteId });
+                debitCredit.ShowDialog();
+            }
         }
     }
 }

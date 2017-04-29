@@ -29,6 +29,18 @@ namespace SiteManager
             InitializeComponent();
             _viewModel = new CustomerViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
+            _viewModel.MessageBoxEvent += (msg) =>
+            {
+                var result = MessageBox.Show(msg, "Add", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            };
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -85,7 +97,7 @@ namespace SiteManager
             {
 
                 var cust = item.Content as Customer;
-                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = cust.CustomerId, EntityTypeId = 1, Name = cust.CustomerName, Date = cust.CreatedDate, TotalAmount = cust.TotalCost  });
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = cust.CustomerId, EntityTypeId = 1, Name = cust.CustomerName, Date = cust.CreatedDate, TotalAmount = cust.TotalCost, SiteId = SiteDetail.SiteId  });
                 debitCredit.ShowDialog();
             }
         }

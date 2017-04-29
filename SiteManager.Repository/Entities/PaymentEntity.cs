@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,16 @@ namespace SiteManager.Repository.Entities
     [Table("DEBIT_CREDIT_ENTITIES")]
     public class PaymentEntity
     {
-        [Column("ENTITY_ID")]
-        public int EntityId { get; set; }
-        [Column("ENTITY_NAME")]
-        public string EntityName { get; set; }
+        public PaymentEntity()
+        {
+            DebitCreditInfo = new List<DebitCreditEntity>();
+        }
+        [Key]
+        [Column("ENTITY_TYPE_ID")]
+        public int EntityTypeId { get; set; }
+        [Column("ENTITY_TYPE_NAME")]
+        public string EntityTypeName { get; set; }
+
+        public virtual ICollection<DebitCreditEntity> DebitCreditInfo { get; set; }
     }
 }

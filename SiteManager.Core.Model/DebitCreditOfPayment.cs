@@ -18,13 +18,19 @@ namespace SiteManager.Core.Model
 
         public int EntityId { get; set; }
 
-        public string Name { get; set; }
-
+        /// <summary>
+        /// Amount Remain to pay
+        /// </summary>
         public decimal DebitAmount { get; set; }
 
+        /// <summary>
+        /// Amount paid
+        /// </summary>
         public decimal CreditAmount { get; set; }
 
         public PaymentMode SelectedMode { get; set; }
+
+        public int SiteId { get; set; }
 
         public string Remark { get; set; }
 

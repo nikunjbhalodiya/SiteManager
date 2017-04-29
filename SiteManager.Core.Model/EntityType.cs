@@ -8,7 +8,7 @@ namespace SiteManager.Core.Model
 {
     public class EntityType
     {
-        public int EntityId { get; set; }
-        public string EntityName { get; set; }
+        public int EntityTypeId { get; set; }
+        public string EntityTypeName { get; set; }
     }
 }

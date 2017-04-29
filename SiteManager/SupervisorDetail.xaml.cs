@@ -29,9 +29,9 @@ namespace SiteManager
             InitializeComponent();
             _viewModel = new SupervisorDetailViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
-            _viewModel.MessageBoxEvent += () =>
+            _viewModel.MessageBoxEvent += (msg) =>
             {
-                var result = MessageBox.Show("Would you like to delete the Supervisor ?", "Delete", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(msg, "Delete", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     return true;
@@ -45,8 +45,13 @@ namespace SiteManager
 
         private void listViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var supervisor = sender as ListViewItem;
-            //_viewModel.SupervisorToAdd = supervisor.Content  as Supervisor;
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+                var supervisor = item.Content as Supervisor;
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = supervisor.SupervisorId, EntityTypeId = 3, Name = supervisor.SupervisorName, Date = supervisor.CreatedDate, TotalAmount = supervisor.MonthlySalary, SiteId = SiteDetail.SiteId });
+                debitCredit.ShowDialog();
+            }
         }
 
         private void txtSupervisorName_GotFocus(object sender, RoutedEventArgs e)

@@ -66,6 +66,21 @@ namespace SiteManager.Repository
                 HasRequired(x => x.WorkType).
                 WithMany(x => x.Labours).
                 HasForeignKey(x => x.WorkTypeId).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DebitCreditEntity>()
+                .HasRequired(x => x.EntityType)
+                .WithMany(x => x.DebitCreditInfo)
+                .HasForeignKey(x => x.EntityTypeId).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DebitCreditEntity>()
+                .HasRequired(x => x.Site)
+                .WithMany(x => x.DebitCreditInfo)
+                .HasForeignKey(x => x.SiteId).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DebitCreditEntity>()
+                .HasRequired(x => x.PaymentMode)
+                .WithMany(x => x.DebitCreditInfo)
+                .HasForeignKey(x => x.PaymentModeId).WillCascadeOnDelete(false);
         }
     }
 }

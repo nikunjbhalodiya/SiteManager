@@ -29,9 +29,9 @@ namespace SiteManager
             InitializeComponent();
             _viewModel = new LabourViewModel(SiteDetail.SiteId);
             DataContext = _viewModel;
-            _viewModel.MessageBoxEvent += () =>
+            _viewModel.MessageBoxEvent += (msg) =>
             {
-                var result = MessageBox.Show("Would you like to delete item.", "Delete", MessageBoxButton.YesNo);
+                var result = MessageBox.Show(msg, "Delete", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
                     return true;

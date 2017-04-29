@@ -12,13 +12,12 @@ namespace SiteManager.Core
     public class CustomerViewModel : ViewModelBase
     {
         private readonly RepositoryManager _repositoryManager;
-        private int count;
+        
         public CustomerViewModel(int siteId)
         {
             _repositoryManager = new RepositoryManager(new SqliteContext());
             SiteId = siteId;
             var customers = _repositoryManager.GetCustomerBySiteId(SiteId);
-            count = customers.Any() ? customers.Last().CustomerId : 0;
             _customers = new ObservableCollection<Customer>(customers);
             Add = new RelayCommand(AddCommand);
             CustomerToAdd = new Customer();
@@ -32,11 +31,14 @@ namespace SiteManager.Core
                 return;
             }
             customer.CreatedDate = DateTime.Now;
-            customer.CustomerId = count = count + 1; 
             customer.SiteId = SiteId;
-            _repositoryManager.AddCustomer(customer);
-            _customers.Add(customer);
-            CustomerToAdd = new Customer();
+            _customers.Any(x => x.HouseNumber == customer.HouseNumber);
+            if (OnMessageBoxEvent("House Number you have entered is already booked. Do you still want to continue to add this customer?"))
+            {
+                _repositoryManager.AddCustomer(customer);
+                _customers = new ObservableCollection<Customer>(_repositoryManager.GetCustomerBySiteId(SiteId));
+                CustomerToAdd = new Customer();
+            }
         }
 
         public RelayCommand Add { get; set; }

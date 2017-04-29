@@ -100,7 +100,7 @@ namespace SiteManager.Core
         {
             var site = siteToDelete as SiteModel;
 
-            if (OnMessageBoxEvent())
+            if (OnMessageBoxEvent(""))
             {
                 _sites.Remove(site);
                 _repositoryManager.DeleteSite(site);

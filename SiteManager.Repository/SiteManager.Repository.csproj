@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Entities\ContractorEntity.cs" />
     <Compile Include="Entities\CustomerEntity.cs" />
+    <Compile Include="Entities\DebitCreditEntity.cs" />
     <Compile Include="Entities\LabourEntity.cs" />
     <Compile Include="Entities\MaterialEntity.cs" />
     <Compile Include="Entities\MaterialTypeEntity.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Mapper\ContractorMapper.cs" />
     <Compile Include="Mapper\CustomerMapper.cs" />
+    <Compile Include="Mapper\DebitCreditMapper.cs" />
     <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Mapper\IMapperBase.cs" />
     <Compile Include="Mapper\LaboursPaymentMapper.cs" />

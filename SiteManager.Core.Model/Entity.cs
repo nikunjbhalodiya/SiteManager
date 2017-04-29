@@ -17,5 +17,8 @@ namespace SiteManager.Core.Model
         public DateTime Date { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public int SiteId { get; set; }
+
     }
 }
