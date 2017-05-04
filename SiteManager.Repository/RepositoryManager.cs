@@ -259,15 +259,15 @@ namespace SiteManager.Repository
             {
                 case 1:
                     var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()));
-                    entity = custEntity.Select(x => new Entity { EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost, SiteId = siteId });
+                    entity = custEntity.Select(x => new Entity { Identity= x.HouseNumber  ,EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost, SiteId = siteId });
                     break;
                 case 2:
                     var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()));
-                    entity = materialEntity.Select(x => new Entity { EntityId = x.MaterialId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.MaterialType.MaterialTypeName, TotalAmount = x.BillAmount, SiteId = siteId });
+                    entity = materialEntity.Select(x => new Entity { Identity = x.BillNumber, EntityId = x.MaterialId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.MaterialType.MaterialTypeName, TotalAmount = x.BillAmount, SiteId = siteId });
                     break;
                 case 3:
                     var supervisorEntity = _supervisorRepo.Find(x => x.SupervisorName.ToLower().Contains(searchText.ToLower()));
-                    entity = supervisorEntity.Select(x => new Entity { EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
+                    entity = supervisorEntity.Select(x => new Entity { Identity = x.DutyDescription , EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
                     break;
                 default:
                     throw new ArgumentException("Invalid entity type.");

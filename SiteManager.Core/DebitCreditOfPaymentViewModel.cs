@@ -28,8 +28,9 @@ namespace SiteManager.Core
             _entityTypes = _repositoryManager.GetPaymentEntity().ToList();
             _paymentModes = _repositoryManager.GetPaymentMode().ToList();
             EntityClick = new RelayCommand(EntityClickCmd);
+            
             EntityGridVisibility = Visibility.Visible;
-
+            SetIdentity(_entity.EntityTypeId);
             _entities = new ObservableCollection<Entity>(new List<Entity> { _entity });
             SelectedEntity = _entityTypes.Single(x => x.EntityTypeId == _entity.EntityTypeId);
             EntityGridHeading = SelectedEntity.EntityTypeName + " Detail";
@@ -53,7 +54,7 @@ namespace SiteManager.Core
             PaymentGridVisibility = Visibility.Hidden; 
             EntityGridVisibility = Visibility.Visible;
             EntityGridHeading = SelectedEntity.EntityTypeName + " Detail";
-
+            SetIdentity(SelectedEntity.EntityTypeId);
             Entities = new ObservableCollection<Entity>(_repositoryManager.SearchEntity(SelectedEntity.EntityTypeId, SearchText, SiteId));
         }
 
@@ -127,6 +128,15 @@ namespace SiteManager.Core
             get { return _paymentModes; }
             set { _paymentModes = value; OnPropertyChanged(nameof(PaymentModes)); }
         }
+
+        private string _identityHeader;
+
+        public string IdentityHeader
+        {
+            get { return _identityHeader; }
+            set { _identityHeader = value; OnPropertyChanged(nameof(IdentityHeader)); }
+        }
+
 
         private decimal _creditAmount;
 
@@ -219,6 +229,23 @@ namespace SiteManager.Core
             set { _entityGridHeading = value; OnPropertyChanged(nameof(EntityGridHeading)); }
         }
 
+        private void SetIdentity(int entityType)
+        {
+            switch (entityType)
+            {
+                case 1:
+                    IdentityHeader = "House Number";
+                    break;
+                case 2:
+                    IdentityHeader = "Bill Number";
+                    break;
+                case 3:
+                    IdentityHeader = "Supervisor Duty";
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public RelayCommand Search { get; set; }
         public RelayCommand Add { get; set; }

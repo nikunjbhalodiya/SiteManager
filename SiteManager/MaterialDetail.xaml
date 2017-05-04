@@ -171,7 +171,7 @@
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Address " DisplayMemberBinding="{Binding Address}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Remark" DisplayMemberBinding="{Binding Remark}" />
 
-                                    <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
@@ -179,7 +179,7 @@
                                                 Command="{Binding DataContext.DeleteVendor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
+                                    </GridViewColumn>-->
                                 </GridView>
                             </ListView.View>
                             <!--<ListView.ItemContainerStyle>

@@ -69,6 +69,7 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Width="120" Header="{Binding IdentityHeader}"  DisplayMemberBinding="{Binding Name}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Total Amount" DisplayMemberBinding="{Binding TotalAmount}" />
                                 </GridView>

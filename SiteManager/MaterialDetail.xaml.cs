@@ -99,7 +99,7 @@ namespace SiteManager
             {
 
                 var material = item.Content as Material;
-                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = material.MaterialDetailId, EntityTypeId = 2, Name = material.SelectedMaterialType.MaterialTypeName, Date = material.CreatedDate, TotalAmount = material.BillAmount, SiteId = SiteDetail.SiteId });
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { Identity = material.BillNumber, EntityId = material.MaterialDetailId, EntityTypeId = 2, Name = material.SelectedMaterialType.MaterialTypeName, Date = material.CreatedDate, TotalAmount = material.BillAmount, SiteId = SiteDetail.SiteId });
                 debitCredit.ShowDialog();
             }
         }

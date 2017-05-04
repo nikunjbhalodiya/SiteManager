@@ -49,7 +49,7 @@ namespace SiteManager
             if (item != null && item.IsSelected)
             {
                 var supervisor = item.Content as Supervisor;
-                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { EntityId = supervisor.SupervisorId, EntityTypeId = 3, Name = supervisor.SupervisorName, Date = supervisor.CreatedDate, TotalAmount = supervisor.MonthlySalary, SiteId = SiteDetail.SiteId });
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { Identity = supervisor.DutyDescription, EntityId = supervisor.SupervisorId, EntityTypeId = 3, Name = supervisor.SupervisorName, Date = supervisor.CreatedDate, TotalAmount = supervisor.MonthlySalary, SiteId = SiteDetail.SiteId });
                 debitCredit.ShowDialog();
             }
         }

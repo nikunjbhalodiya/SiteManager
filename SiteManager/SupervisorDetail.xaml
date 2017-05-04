@@ -64,7 +64,7 @@
         <Border Grid.Row="3" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray">
             <StackPanel>
                 <Label Style="{StaticResource HeaderStyle}">Supervisor Informtion.</Label>
-                <ScrollViewer  VerticalScrollBarVisibility="Visible">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <ListView.View>
                             <GridView>
@@ -73,7 +73,7 @@
                                 <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Description" DisplayMemberBinding="{Binding DutyDescription}" />
                                 <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Create Date" DisplayMemberBinding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
 
-                                <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
@@ -82,7 +82,7 @@
                                             AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                                </GridViewColumn>-->
                             </GridView>
                         </ListView.View>
                         <ListView.ItemContainerStyle>
