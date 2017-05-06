@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow"
-        Title="Site Information" Background="WhiteSmoke" >
+        Title="Site Information" Background="WhiteSmoke" Icon="Logo\ojasicon.ico" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
