@@ -102,9 +102,10 @@
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Material"  DisplayMemberBinding="{Binding SelectedMaterialType.MaterialTypeName}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Vendor"  DisplayMemberBinding="{Binding SelectedVendor.VendorName}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Bill Number"  DisplayMemberBinding="{Binding BillNumber}" />
-                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Quantity"  DisplayMemberBinding="{Binding Quantity}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Quantity"  DisplayMemberBinding="{Binding QuantityUnit}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Amount"  DisplayMemberBinding="{Binding BillAmount}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Bill Date"  DisplayMemberBinding="{Binding BillDate, StringFormat='dd/MM/yyyy'}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Remark"  DisplayMemberBinding="{Binding Remark}" />
 
                                     <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>

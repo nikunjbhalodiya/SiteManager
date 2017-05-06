@@ -258,15 +258,15 @@ namespace SiteManager.Repository
             switch (entityTypeId)
             {
                 case 1:
-                    var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()));
+                    var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
                     entity = custEntity.Select(x => new Entity { Identity= x.HouseNumber  ,EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost, SiteId = siteId });
                     break;
                 case 2:
-                    var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()));
+                    var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
                     entity = materialEntity.Select(x => new Entity { Identity = x.BillNumber, EntityId = x.MaterialId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.MaterialType.MaterialTypeName, TotalAmount = x.BillAmount, SiteId = siteId });
                     break;
                 case 3:
-                    var supervisorEntity = _supervisorRepo.Find(x => x.SupervisorName.ToLower().Contains(searchText.ToLower()));
+                    var supervisorEntity = _supervisorRepo.Find(x => x.SupervisorName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
                     entity = supervisorEntity.Select(x => new Entity { Identity = x.DutyDescription , EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
                     break;
                 default:

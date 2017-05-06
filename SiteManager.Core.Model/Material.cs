@@ -33,5 +33,11 @@ namespace SiteManager.Core.Model
         public int SiteId { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public string QuantityUnit
+        {
+            get { return Quantity + " " + SelectedUnit.UnitName; }
+        }
+
     }
 }

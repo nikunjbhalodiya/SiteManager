@@ -69,7 +69,7 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding Name}" />
-                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Width="120" Header="{Binding IdentityHeader}"  DisplayMemberBinding="{Binding Identity}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Width="130" Header="{Binding IdentityHeader}"  DisplayMemberBinding="{Binding Identity}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Date" DisplayMemberBinding="{Binding Date, StringFormat='dd/MM/yyyy'}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Total Amount" DisplayMemberBinding="{Binding TotalAmount}" />
                                 </GridView>
@@ -92,6 +92,8 @@
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Amount Paid"  DisplayMemberBinding="{Binding CreditAmount}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment Mode" DisplayMemberBinding="{Binding SelectedMode.Content}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Payment Date" DisplayMemberBinding="{Binding PaymentDate, StringFormat='dd/MM/yyyy'}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Remark" DisplayMemberBinding="{Binding Remark}" />
+                                    
                                 </GridView>
                             </ListView.View>
                             <ListView.ItemContainerStyle>
