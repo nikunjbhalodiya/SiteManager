@@ -88,7 +88,10 @@
                 <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark :</Label>
                 <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="350" Text="{Binding MaterialToAdd.Remark, Mode=TwoWay}" HorizontalAlignment="Left" />
 
-                <Button x:Name="btnAddDetail" Grid.Row="8" Margin="10" Grid.Column="1" Command="{Binding AddMaterial}" CommandParameter="{Binding MaterialToAdd}" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="btnAddDetail" Margin="10" Command="{Binding AddMaterial}" CommandParameter="{Binding MaterialToAdd}" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
+                    <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
+                </StackPanel>
 
                 <StackPanel Grid.Row="9" Grid.ColumnSpan="3">
                     <Label Style="{StaticResource HeaderStyle}">Material Informtion.</Label>

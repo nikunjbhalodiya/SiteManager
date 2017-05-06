@@ -77,6 +77,7 @@ namespace SiteManager.Core
 
         private void AddCommand(object obj)
         {
+            ErrorMessage = "";
             var payment = obj as DebitCreditOfPayment;
             payment.SiteId = SiteId;
             payment.CreditAmount = CreditAmount;
@@ -86,6 +87,7 @@ namespace SiteManager.Core
             
             if (payment.CreditAmount < 1 || payment.SelectedMode == null || payment.PaymentDate == default(DateTime))
             {
+                ErrorMessage = "*Please check the entry. Some field's Values are missing.";
                 return;
             }
 

@@ -144,18 +144,20 @@ namespace SiteManager.Core
 
         private void AddMaterialCommand(object model)
         {
+            ErrorMessage = "";
             var material = model as Material;
 
-            material.SelectedVendor = Vendors.Single(x => x.VendorId == SelectedVendor.VendorId);
             if (material.BillAmount <= 0
                 || material.Quantity <= 0
                 || string.IsNullOrWhiteSpace(material.BillNumber)
-                || material.SelectedVendor.VendorId == 0
+                || SelectedVendor.VendorId == 0
                 || material.SelectedMaterialType.MaterialTypeId == 0
                 || material.SelectedUnit.UnitId == 0)
             {
+                ErrorMessage = "*Please check the entry. Some field's Values are missing.";
                 return;
             }
+            material.SelectedVendor = Vendors.Single(x => x.VendorId == SelectedVendor.VendorId);
             material.SiteId = SiteId;
             material.CreatedDate = DateTime.Now;
             _repositoryManager.AddMaterial(material);

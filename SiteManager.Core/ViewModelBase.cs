@@ -33,7 +33,7 @@ namespace SiteManager.Core
         public string ErrorMessage
         {
             get { return _errorMessage; }
-            set { _errorMessage = value; }
+            set { _errorMessage = value; OnPropertyChanged(nameof(ErrorMessage)); }
         }
 
     }

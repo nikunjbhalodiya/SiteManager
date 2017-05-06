@@ -11,13 +11,12 @@ namespace SiteManager.Core
     public class SupervisorDetailViewModel : ViewModelBase
     {
         private readonly RepositoryManager _repositoryManager;
-        private int count;
+        
         public SupervisorDetailViewModel(int siteId)
         {
             SiteId = siteId;
             _repositoryManager = new RepositoryManager(new SqliteContext());
             _supervisors = new ObservableCollection<Supervisor>(_repositoryManager.GetSupervisorsBySiteId(siteId));
-            count = _supervisors.Count;
             NameVisibility = Visibility.Hidden;
             SalaryVisibility = Visibility.Hidden;
             Add = new RelayCommand(AddSupervisorCommand);
@@ -68,7 +67,6 @@ namespace SiteManager.Core
         private void AddSupervisorCommand(object model)
         {
             var supervisorModel = model as Supervisor;
-            supervisorModel.SupervisorId = count = count + 1;
             supervisorModel.SiteId = SiteId;
             supervisorModel.CreatedDate = DateTime.Now;
             if (string.IsNullOrWhiteSpace(supervisorModel.SupervisorName))
@@ -82,7 +80,7 @@ namespace SiteManager.Core
                 return;
             }
             _repositoryManager.AddSupervisor(supervisorModel);
-            _supervisors.Add(supervisorModel);
+            Supervisors = new ObservableCollection<Supervisor>(_repositoryManager.GetSupervisorsBySiteId(SiteId));
             SupervisorToAdd = new Supervisor();
         }
 

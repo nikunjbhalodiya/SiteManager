@@ -73,7 +73,10 @@
                 <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Cost:</Label>
                 <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
-                <Button x:Name="btnAddCustomer" Grid.Row="8" Margin="10" Grid.Column="1" Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+                    <Button x:Name="btnAddCustomer"  Margin="10"  Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
+                    <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
+                </StackPanel>
 
                 <StackPanel Grid.Row="9" Grid.Column="1">
                     <Label Style="{StaticResource HeaderStyle}">Customer Informtion.</Label>

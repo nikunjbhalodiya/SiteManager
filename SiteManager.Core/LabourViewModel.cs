@@ -54,22 +54,25 @@ namespace SiteManager.Core
 
         private void AddLabourCmd(object model)
         {
+            ErrorMessage = "";
             var labour = model as Labour;
+            
+
+            if (labour.Payment < 1 || labour.PaymentDate == default(DateTime) || SelectedContractor.ContractorId == 0 || labour.WorkType.WorkTypeId == 0)
+            {
+                ErrorMessage = "*Please check the entry. Some field's Values are missing.";
+                return;
+            }
             labour.SiteId = SiteId;
             labour.CreateDate = DateTime.Now;
             labour.Contractor = Contractors.Single(x => x.ContractorId == SelectedContractor.ContractorId);
 
-            if (labour.Payment < 1 || labour.PaymentDate == default(DateTime) || labour.Contractor.ContractorId == 0 || labour.WorkType.WorkTypeId == 0)
-            {
-                return;
-            }
-
             _repositoryManager.AddLabourPayment(labour);
-            _labours.Add(labour);
             LabourToAdd = new Labour();
             LabourToAdd.Contractor = Contractors.First();
             LabourToAdd.WorkType = WorkTypes.First();
-            _labours = new ObservableCollection<Labour>(_repositoryManager.GetLabourPayments(SiteId));
+            Labours = new ObservableCollection<Labour>(_repositoryManager.GetLabourPayments(SiteId));
+            OnPropertyChanged(nameof(LabourToAdd));
         }
 
         private void AddWorkTypeCmd(object model)

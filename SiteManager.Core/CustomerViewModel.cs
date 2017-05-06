@@ -25,20 +25,25 @@ namespace SiteManager.Core
 
         private void AddCommand(object model)
         {
+            ErrorMessage = "";
             var customer = model as Customer;
             if (string.IsNullOrWhiteSpace(customer.CustomerName) || string.IsNullOrWhiteSpace(customer.HouseNumber) || customer.TotalCost < 1)
             {
+                ErrorMessage = "*Please check the entry. Some field's Values are missing.";
                 return;
             }
             customer.CreatedDate = DateTime.Now;
             customer.SiteId = SiteId;
-            _customers.Any(x => x.HouseNumber == customer.HouseNumber);
-            if (OnMessageBoxEvent("House Number you have entered is already booked. Do you still want to continue to add this customer?"))
+            if (_customers.Any(x => x.HouseNumber == customer.HouseNumber))
             {
-                _repositoryManager.AddCustomer(customer);
-                _customers = new ObservableCollection<Customer>(_repositoryManager.GetCustomerBySiteId(SiteId));
-                CustomerToAdd = new Customer();
+                if (!OnMessageBoxEvent("House Number you have entered is already booked. Do you still want to continue to add this customer?"))
+                {
+                    return;
+                }
             }
+            _repositoryManager.AddCustomer(customer);
+            Customers = new ObservableCollection<Customer>(_repositoryManager.GetCustomerBySiteId(SiteId));
+            CustomerToAdd = new Customer();
         }
 
         public RelayCommand Add { get; set; }
