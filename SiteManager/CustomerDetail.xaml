@@ -41,46 +41,47 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">House Number:</Label>
                 <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtHouseNumber" GotFocus="txtHouseNumber_GotFocus" LostFocus="txtHouseNumber_LostFocus"  Style="{StaticResource TextBoxStyle}"  Text="{Binding CustomerToAdd.HouseNumber, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtHouseNumber" GotFocus="txtHouseNumber_GotFocus" LostFocus="txtHouseNumber_LostFocus"  Style="{StaticResource TextBoxStyle}"  Text="{Binding CustomerToAdd.HouseNumber, Mode=TwoWay}" Width="300" HorizontalAlignment="Left" />
                     <Label x:Name="lblHouseNumberErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* House number required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Customer Name:</Label>
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtName" GotFocus="txtName_GotFocus" LostFocus="txtName_LostFocus" Style="{StaticResource TextBoxStyle}" Width="500" Text="{Binding CustomerToAdd.CustomerName, Mode=TwoWay}" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtName" GotFocus="txtName_GotFocus" LostFocus="txtName_LostFocus" Style="{StaticResource TextBoxStyle}" Width="300" Text="{Binding CustomerToAdd.CustomerName, Mode=TwoWay}" HorizontalAlignment="Left" />
                     <Label x:Name="lblNameErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Customer Name required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Mobile Number:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CustomerToAdd.MobileNumber, Mode=TwoWay}" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CustomerToAdd.MobileNumber, Mode=TwoWay}" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
                 <!--<Label x:Name="lblMobileErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Mobile Number required.</Label>-->
 
 
                 <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Total House Cost:</Label>
-                <TextBox x:Name="txtHouseCost" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="500" PreviewTextInput="TextBox_PreviewTextInput_1" Text="{Binding CustomerToAdd.TotalCost, Mode=TwoWay}" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtHouseCost" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="300" PreviewTextInput="TextBox_PreviewTextInput_1" Text="{Binding CustomerToAdd.TotalCost, Mode=TwoWay}" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource LabelStyle}">Purchase Date :</Label>
-                <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Text="{Binding CustomerToAdd.PurchaseDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="500"/>
+                <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Text="{Binding CustomerToAdd.PurchaseDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="300"/>
 
 
                 <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Work:</Label>
-                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerToAdd.ExtraWork, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="6" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding CustomerToAdd.ExtraWork, Mode=TwoWay}" Width="300" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Extra Cost:</Label>
-                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" PreviewTextInput="TextBox_PreviewTextInput_2" Text="{Binding CustomerToAdd.ExtraCost, Mode=TwoWay}" Width="300" HorizontalAlignment="Left" />
 
                 <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
                     <Button x:Name="btnAddCustomer"  Margin="10"  Height="30" Width="100" Content="Add Customer" HorizontalAlignment="Left" Command="{Binding Add}" CommandParameter="{Binding CustomerToAdd}"></Button>
                     <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="9" Grid.Column="1">
+                <StackPanel Grid.RowSpan="9" Grid.Column="2" HorizontalAlignment="Left">
                     <Label Style="{StaticResource HeaderStyle}">Customer Informtion.</Label>
-                    <ScrollViewer  VerticalScrollBarVisibility="Visible">
+                    <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Height="250" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>

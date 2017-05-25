@@ -13,7 +13,6 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -36,44 +35,41 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Supervisor Name :</Label>
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtSupervisorName" GotFocus="txtSupervisorName_GotFocus" Text="{Binding SupervisorToAdd.SupervisorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtSupervisorName" GotFocus="txtSupervisorName_GotFocus" Text="{Binding SupervisorToAdd.SupervisorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
                     <Label x:Name="lblNameErrMsg" Visibility="{Binding NameVisibility }" Style="{StaticResource ErrorMessageStyle}">* Supervisor Name required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Monthly Salary :</Label>
                 <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtSalary" GotFocus="txtSalary_GotFocus" PreviewTextInput="txtSalary_PreviewTextInput" Text="{Binding SupervisorToAdd.MonthlySalary, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtSalary" GotFocus="txtSalary_GotFocus" PreviewTextInput="txtSalary_PreviewTextInput" Text="{Binding SupervisorToAdd.MonthlySalary, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
                     <Label x:Name="lblSalaryErrMsg" Visibility="{Binding SalaryVisibility}" Style="{StaticResource ErrorMessageStyle}">* Monthly Salary required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Duty Description :</Label>
                 <!--<StackPanel   Orientation="Horizontal">-->
-                <TextBox x:Name="txtDuty" Grid.Row="3" Grid.Column="1" Text="{Binding SupervisorToAdd.DutyDescription, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtDuty" Grid.Row="3" Grid.Column="1" Text="{Binding SupervisorToAdd.DutyDescription, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
                 <!--<Label x:Name="lblDutyErrMsg" Visibility="{Binding}" Style="{StaticResource ErrorMessageStyle}">* Duty Description required.</Label>-->
                 <!--</StackPanel>-->
 
                 <Button x:Name="btnAddSupervisor" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding Add}" CommandParameter="{Binding SupervisorToAdd}"  Height="30" Width="100" Content="Add Supervisor" HorizontalAlignment="Left"></Button>
-            </Grid>
-        </Border>
 
+                <StackPanel Grid.Row="1" Grid.RowSpan="5" Grid.Column="2">
+                    <Label Style="{StaticResource HeaderStyle}">Supervisor Informtion.</Label>
+                    <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header=" Name" DisplayMemberBinding="{Binding SupervisorName}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Salary" DisplayMemberBinding="{Binding MonthlySalary}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Description" DisplayMemberBinding="{Binding DutyDescription}" />
+                                    <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Create Date" DisplayMemberBinding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
 
-        <Border Grid.Row="3" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray">
-            <StackPanel>
-                <Label Style="{StaticResource HeaderStyle}">Supervisor Informtion.</Label>
-                <ScrollViewer  VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header=" Name" DisplayMemberBinding="{Binding SupervisorName}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Salary" DisplayMemberBinding="{Binding MonthlySalary}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Description" DisplayMemberBinding="{Binding DutyDescription}" />
-                                <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Create Date" DisplayMemberBinding="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
-
-                                <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
@@ -83,16 +79,22 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>-->
-                            </GridView>
-                        </ListView.View>
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </ScrollViewer>
-            </StackPanel>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <EventSetter Event="MouseDoubleClick" Handler="listViewItem_MouseDoubleClick" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
         </Border>
+
+
+        <!--<Border Grid.Row="3" Grid.Column="1" Margin="5" BorderThickness="1" Background="White" BorderBrush="DarkGray">
+            
+        </Border>-->
     </Grid>
 </Page>
