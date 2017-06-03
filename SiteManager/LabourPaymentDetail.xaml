@@ -9,18 +9,18 @@
       Title="LabourPaymentDetail">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
@@ -46,30 +46,30 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Contractor Name :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <ComboBox x:Name="cmbContractor"  Style="{StaticResource ComboStyle}" Loaded="cmbContractor_Loaded" ItemsSource="{Binding ContractorList}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="ContractorName" SelectedValuePath="ContractorId"  Width="350"></ComboBox>
+                    <ComboBox x:Name="cmbContractor"  Style="{StaticResource ComboStyle}" Loaded="cmbContractor_Loaded" ItemsSource="{Binding ContractorList}" SelectedItem="{Binding SelectedContractor, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="ContractorName" SelectedValuePath="ContractorId"  Width="250"></ComboBox>
                     <!--<Button x:Name="btnContractor" Content="Add Contractor" Click="btnContractor_Click" Height="25" Width="90" Margin="10" />-->
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Type :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                    <ComboBox x:Name="cmbWrokType"  Style="{StaticResource ComboStyle}" ItemsSource="{Binding WorkTypes}" Loaded="cmbWrokType_Loaded" SelectedItem="{Binding LabourToAdd.WorkType, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="WorkTypeName" SelectedValuePath="WorkTypeId"  Width="350"></ComboBox>
+                    <ComboBox x:Name="cmbWrokType"  Style="{StaticResource ComboStyle}" ItemsSource="{Binding WorkTypes}" Loaded="cmbWrokType_Loaded" SelectedItem="{Binding LabourToAdd.WorkType, Mode=TwoWay}" SelectedIndex="0" DisplayMemberPath="WorkTypeName" SelectedValuePath="WorkTypeId"  Width="250"></ComboBox>
                     <!--<Button x:Name="btnAddWorkType" Content="Add Work Type" Height="25" Width="90" Margin="10" Click="btnAddWorkType_Click" />-->
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Detail :</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding LabourToAdd.WorkDetail, Mode=TwoWay}" Width="350" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="{Binding LabourToAdd.WorkDetail, Mode=TwoWay}" Width="250" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Payment :</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding LabourToAdd.Payment}" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding LabourToAdd.Payment}" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
 
                 <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Date :</Label>
-                <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Text="{Binding LabourToAdd.PaymentDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="350"/>
+                <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Text="{Binding LabourToAdd.PaymentDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="250"/>
 
                 <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark :</Label>
-                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding LabourToAdd.Remark, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding LabourToAdd.Remark, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                 
                 <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="btnAddLabourDetail" Command="{Binding AddLabour}" CommandParameter="{Binding LabourToAdd}" Margin="10" Height="30" Width="150" Content="Add Labour Detail" HorizontalAlignment="Left"></Button>
+                    <Button x:Name="btnAddLabourDetail" Command="{Binding AddLabour}" CommandParameter="{Binding LabourToAdd}" Margin="5" Height="30" Width="150" Content="Add Labour Detail" HorizontalAlignment="Left"></Button>
                     <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
                 </StackPanel>
             </Grid>
@@ -94,17 +94,17 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Contractor Name :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <TextBox x:Name="txtContractorName" Text="{Binding ContractorToAdd.ContractorName, Mode=TwoWay}" GotFocus="txtContractorName_GotFocus" LostFocus="txtContractorName_LostFocus"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtContractorName" Text="{Binding ContractorToAdd.ContractorName, Mode=TwoWay}" GotFocus="txtContractorName_GotFocus" LostFocus="txtContractorName_LostFocus"  Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblContractorErrMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Name required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Detail:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ContractorToAdd.Detail, Mode=TwoWay }" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
-                <Button x:Name="btnAddContractor" Grid.Row="3" Margin="10" Command="{Binding AddContractor}" CommandParameter="{Binding ContractorToAdd}" Grid.Column="1" Height="30" Width="150" Content="Add Contractor" HorizontalAlignment="Left"></Button>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ContractorToAdd.Detail, Mode=TwoWay }" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
+                <Button x:Name="btnAddContractor" Grid.Row="3" Margin="5" Command="{Binding AddContractor}" CommandParameter="{Binding ContractorToAdd}" Grid.Column="1" Height="30" Width="150" Content="Add Contractor" HorizontalAlignment="Left"></Button>
 
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="ContractorlistView" Margin="10" Height="200"  ItemsSource="{Binding Contractors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="ContractorlistView" Margin="5" Height="100"  ItemsSource="{Binding Contractors}" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding ContractorName}" />
@@ -153,9 +153,9 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Work Name:</Label>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                        <TextBox x:Name="txtWorkName" GotFocus="txtWorkName_GotFocus" LostFocus="txtWorkName_LostFocus" Text="{Binding WorkTypeToAdd.WorkTypeName, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                        <TextBox x:Name="txtWorkName" GotFocus="txtWorkName_GotFocus" LostFocus="txtWorkName_LostFocus" Text="{Binding WorkTypeToAdd.WorkTypeName, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                         <Label x:Name="lblWorkNameErrMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Work type required.</Label>
-                        <Button x:Name="addWorkType" Command="{Binding AddWorkType}" CommandParameter="{Binding WorkTypeToAdd}" Margin="10" Height="30" Width="150" Content="Add Work Type" HorizontalAlignment="Left"></Button>
+                        <Button x:Name="addWorkType" Command="{Binding AddWorkType}" CommandParameter="{Binding WorkTypeToAdd}" Margin="5" Height="30" Width="100" Content="Add Work Type" HorizontalAlignment="Left"></Button>
                     </StackPanel>
                     <!--<ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
                     <ListView x:Name="WorkTypelistView"  Margin="10" ItemsSource="{Binding WorkTypes}"  Height="200" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -189,7 +189,7 @@
             <StackPanel>
                 <Label Style="{StaticResource HeaderStyle}">Labour Payment Information</Label>
                 <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-                    <ListView x:Name="LabourlistView" Margin="10" Height="200" ItemsSource="{Binding Labours}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ListView x:Name="LabourlistView" Margin="5" Height="200" ItemsSource="{Binding Labours}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Contractor"  DisplayMemberBinding="{Binding Contractor.ContractorName}" />

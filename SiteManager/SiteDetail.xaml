@@ -22,9 +22,6 @@
             <TabItem Header="Labour Payment Detail" Height="30">
                 <Frame Source="LabourPaymentDetail.xaml"  />
             </TabItem>
-            <!--<TabItem Header="Credit/Debit Detail" Height="30">
-                <Frame Source="CreditDebitDetail.xaml"  />
-            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>

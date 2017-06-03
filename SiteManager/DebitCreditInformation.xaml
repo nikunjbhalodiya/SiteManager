@@ -9,17 +9,17 @@
         Title="Debit Credit Information" Background="WhiteSmoke">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
@@ -29,7 +29,7 @@
         <Border Grid.Row="2" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -37,7 +37,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -49,7 +49,7 @@
                     <StackPanel  Orientation="Horizontal">
                         <TextBox  x:Name="txtSearch" GotFocus="txtSearch_GotFocus" Text="{Binding SearchText, Mode=TwoWay}" LostFocus="txtSearch_LostFocus" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
                         <ComboBox x:Name="cmbEntityType" Style="{StaticResource ComboStyle}" ItemsSource="{Binding EntityTypes}" SelectedItem="{Binding SelectedEntity, Mode=TwoWay}" Loaded="cmbEntityType_Loaded" DisplayMemberPath="EntityTypeName" SelectedValuePath="EntityTypeId"  Width="350"></ComboBox>
-                        <Button x:Name="btnSearch" Margin="10" Height="30" Width="100" Command="{Binding Search}" CommandParameter="{Binding}" Content="Search" HorizontalAlignment="Left"></Button>
+                        <Button x:Name="btnSearch" Margin="5" Height="30" Width="100" Command="{Binding Search}" CommandParameter="{Binding}" Content="Search" HorizontalAlignment="Left"></Button>
                     </StackPanel>
                     <Label x:Name="lblSearchErrMsg" Visibility="Hidden"  Style="{StaticResource ErrorMessageStyle}">* Search text required and search text should be of atleast 3 character.</Label>
                 </StackPanel>
@@ -65,7 +65,7 @@
                 <StackPanel Grid.Column="0">
                     <Label Style="{StaticResource HeaderStyle}" Visibility="{Binding EntityGridVisibility}" Content="{Binding EntityGridHeading}"></Label>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="listViewDetail" Visibility="{Binding EntityGridVisibility}" Margin="10" ItemsSource="{Binding Entities}" Height="150" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="listViewDetail" Visibility="{Binding EntityGridVisibility}" Margin="5" ItemsSource="{Binding Entities}" Height="120" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Name"  DisplayMemberBinding="{Binding Name}" />
@@ -85,7 +85,7 @@
                 <StackPanel Grid.Column="1">
                     <Label Style="{StaticResource HeaderStyle}" Visibility="{Binding PaymentGridVisibility}" Content="{Binding PaymentGridHeading}"></Label>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="lstPaymentDetail" Margin="10" Visibility="{Binding PaymentGridVisibility}" ItemsSource="{Binding PaymentDetails}" Height="150" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="lstPaymentDetail" Margin="5" Visibility="{Binding PaymentGridVisibility}" ItemsSource="{Binding PaymentDetails}" Height="120" Cursor="Hand" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Amount Remain" DisplayMemberBinding="{Binding DebitAmount}" />
@@ -110,7 +110,7 @@
             <Border  Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" ScrollViewer.CanContentScroll="True"  ScrollViewer.VerticalScrollBarVisibility="Visible" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
+                        <RowDefinition Height="5" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -118,7 +118,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="10" />
+                        <RowDefinition Height="5" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -139,7 +139,7 @@
                     <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="TextBox_PreviewTextInput" Text="{Binding CreditAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left"  />
 
                     <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Payment Mode:</Label>
-                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="10">
+                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="5">
 
                         <ListBox ItemsSource="{Binding PaymentModes}" SelectedItem="{Binding PaymentToAdd.SelectedMode}">
                             <ListBox.ItemContainerStyle>
@@ -158,13 +158,13 @@
                     </StackPanel>
 
                     <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Payment Date:</Label>
-                    <DatePicker Grid.Row="5" Grid.Column="1" Height="25" Margin="10" Text="{Binding PaymentToAdd.PaymentDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
+                    <DatePicker Grid.Row="5" Grid.Column="1" Height="25" Margin="5" Text="{Binding PaymentToAdd.PaymentDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="500" HorizontalAlignment="Left" />
 
                     <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark:</Label>
                     <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding PaymentToAdd.Remark, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="500" HorizontalAlignment="Left" />
 
                     <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
-                        <Button x:Name="btnCreditDetail" Margin="10" Command="{Binding Add}" CommandParameter="{Binding PaymentToAdd}" Height="30" Width="100" Content="Update Payment" HorizontalAlignment="Left"></Button>
+                        <Button x:Name="btnCreditDetail" Margin="5" Command="{Binding Add}" CommandParameter="{Binding PaymentToAdd}" Height="30" Width="100" Content="Update Payment" HorizontalAlignment="Left"></Button>
                         <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
                     </StackPanel>
                 </Grid>

@@ -71,8 +71,10 @@ namespace SiteManager.Core
             LabourToAdd = new Labour();
             LabourToAdd.Contractor = Contractors.First();
             LabourToAdd.WorkType = WorkTypes.First();
+            SelectedContractor = ContractorList.First();
             Labours = new ObservableCollection<Labour>(_repositoryManager.GetLabourPayments(SiteId));
             OnPropertyChanged(nameof(LabourToAdd));
+            OnPropertyChanged(nameof(SelectedContractor));
         }
 
         private void AddWorkTypeCmd(object model)

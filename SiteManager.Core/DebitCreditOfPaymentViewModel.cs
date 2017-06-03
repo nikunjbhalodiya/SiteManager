@@ -85,7 +85,7 @@ namespace SiteManager.Core
             payment.EntityId = _entity.EntityId;
             payment.EntityType = EntityTypes.Single(x => x.EntityTypeId == _entity.EntityTypeId);
             
-            if (payment.CreditAmount < 1 || payment.SelectedMode == null || payment.PaymentDate == default(DateTime))
+            if (payment.CreditAmount == 0 || payment.SelectedMode == null || payment.PaymentDate == default(DateTime))
             {
                 ErrorMessage = "*Please check the entry. Some field's Values are missing.";
                 return;

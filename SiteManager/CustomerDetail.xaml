@@ -10,15 +10,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
@@ -27,7 +27,7 @@
         <Border Grid.Row="2" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -37,10 +37,9 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -79,10 +78,10 @@
                     <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
                 </StackPanel>
 
-                <StackPanel Grid.RowSpan="9" Grid.Column="2" HorizontalAlignment="Left">
+                <StackPanel Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Style="{StaticResource HeaderStyle}">Customer Informtion.</Label>
                     <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Height="250" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Customers}" Height="150" Cursor="Hand" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Customer Name"  DisplayMemberBinding="{Binding CustomerName}" />

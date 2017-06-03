@@ -7,7 +7,7 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="DarkGray" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
     </Style>
     <Style x:Key="PageHeaderStyle" TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="25" />
@@ -15,15 +15,15 @@
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
     </Style>
     <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Medium" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
     </Style>
     <Style x:Key="ErrorMessageStyle" TargetType="{x:Type Label}">
-        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontSize" Value="8" />
         <Setter Property="Foreground" Value="Red" />
         <Setter Property="HorizontalAlignment"  Value="Left"/>
     </Style>
@@ -52,7 +52,7 @@
     </ControlTemplate>
     <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Margin" Value="5"/>
         <Setter Property="FontSize" Value="12" />
     </Style>
     <!--TextBox style-->
@@ -61,13 +61,13 @@
     <Style x:Key="RadioStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Heavy" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
     </Style>
 
     <!--Combo Style-->
     <Style x:Key="ComboStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FontSize" Value="12" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5" />
         <Setter Property="Background" Value="White" />
         <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>

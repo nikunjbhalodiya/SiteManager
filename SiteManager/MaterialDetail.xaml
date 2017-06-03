@@ -10,18 +10,18 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
@@ -30,7 +30,7 @@
         <Border Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -40,7 +40,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -49,31 +49,31 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Material Type :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                    <ComboBox x:Name="cmbMaterialType" Style="{StaticResource ComboStyle}" ItemsSource="{Binding MaterialTypes, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" SelectedItem="{Binding MaterialToAdd.SelectedMaterialType, Mode=TwoWay}" DisplayMemberPath="MaterialTypeName" SelectedValuePath="MaterialTypeId"  Width="350"></ComboBox>
+                    <ComboBox x:Name="cmbMaterialType" Style="{StaticResource ComboStyle}" ItemsSource="{Binding MaterialTypes, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" SelectedItem="{Binding MaterialToAdd.SelectedMaterialType, Mode=TwoWay}" DisplayMemberPath="MaterialTypeName" SelectedValuePath="MaterialTypeId"  Width="250"></ComboBox>
                     <Label x:Name="lblMaterialErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Please select Material.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Vendor Name :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                    <ComboBox x:Name="cmbVendor" Style="{StaticResource ComboStyle}" SelectedItem="{Binding SelectedVendor, Mode=TwoWay}" ItemsSource="{Binding VendorList, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" DisplayMemberPath="VendorName" SelectedValuePath="VendorId"  Width="350"></ComboBox>
+                    <ComboBox x:Name="cmbVendor" Style="{StaticResource ComboStyle}" SelectedItem="{Binding SelectedVendor, Mode=TwoWay}" ItemsSource="{Binding VendorList, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" DisplayMemberPath="VendorName" SelectedValuePath="VendorId"  Width="250"></ComboBox>
                     <!--<Button x:Name="btnAddVendor" Content="Add Vendor"  Click="btnAddVendor_Click" Height="25" Width="80" Margin="10" />-->
                     <Label x:Name="lblVendorErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Please select vendor.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Number :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" >
-                    <TextBox x:Name="txtBillNbr" GotFocus="txtBillNbr_GotFocus" Text="{Binding MaterialToAdd.BillNumber, Mode=TwoWay}" LostFocus="txtBillNbr_LostFocus" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtBillNbr" GotFocus="txtBillNbr_GotFocus" Text="{Binding MaterialToAdd.BillNumber, Mode=TwoWay}" LostFocus="txtBillNbr_LostFocus" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblBillErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Bill Number Required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}">Bill Date :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
-                    <DatePicker HorizontalAlignment="Left" Margin="10" Text="{Binding MaterialToAdd.BillDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="350"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="5" Text="{Binding MaterialToAdd.BillDate, StringFormat='dd/MM/yyyy', Mode=TwoWay}" Width="250"/>
                 </StackPanel>
 
                 <Label Grid.Row="5" Grid.Column="0"  Style="{StaticResource LabelStyle}">Quantity :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" >
-                    <TextBox x:Name="txtQty" PreviewTextInput="txtQty_PreviewTextInput" Text="{Binding MaterialToAdd.Quantity, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtQty" PreviewTextInput="txtQty_PreviewTextInput" Text="{Binding MaterialToAdd.Quantity, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="160" HorizontalAlignment="Left" />
                     <ComboBox x:Name="cmbQtyUnits" Style="{StaticResource ComboStyle}" SelectedIndex="0" ItemsSource="{Binding Units, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MaterialToAdd.SelectedUnit , Mode=TwoWay}" Width="80" DisplayMemberPath="UnitName" SelectedValuePath="UnitId"></ComboBox>
                     <Label x:Name="lblQtyErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}" Content="{Binding QtyErrorMsg}"></Label>
                 </StackPanel>
@@ -81,22 +81,22 @@
 
                 <Label Grid.Row="6" Grid.Column="0"  Style="{StaticResource LabelStyle}">Bill Amount :</Label>
                 <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" >
-                    <TextBox  x:Name="txtBillAmt" PreviewTextInput="txtBillAmt_PreviewTextInput" Text="{Binding MaterialToAdd.BillAmount, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox  x:Name="txtBillAmt" PreviewTextInput="txtBillAmt_PreviewTextInput" Text="{Binding MaterialToAdd.BillAmount, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblBillAmtErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Bill Amount Required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="7" Grid.Column="0"  Style="{StaticResource LabelStyle}">Remark :</Label>
-                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="350" Text="{Binding MaterialToAdd.Remark, Mode=TwoWay}" HorizontalAlignment="Left" />
+                <TextBox Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Width="250" Text="{Binding MaterialToAdd.Remark, Mode=TwoWay}" HorizontalAlignment="Left" />
 
                 <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="btnAddDetail" Margin="10" Command="{Binding AddMaterial}" CommandParameter="{Binding MaterialToAdd}" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
+                    <Button x:Name="btnAddDetail" Margin="5" Command="{Binding AddMaterial}" CommandParameter="{Binding MaterialToAdd}" Height="30" Width="150" Content="Add Material Detail" HorizontalAlignment="Left"></Button>
                     <Label x:Name="lblCommonErrorMsg" Content="{Binding ErrorMessage}" Style="{StaticResource ErrorMessageStyle}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="9" Grid.ColumnSpan="3">
                     <Label Style="{StaticResource HeaderStyle}">Material Informtion.</Label>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Materials}" Cursor="Hand" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="listView" Margin="5" ItemsSource="{Binding Materials}" Cursor="Hand" Height="200" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Material"  DisplayMemberBinding="{Binding SelectedMaterialType.MaterialTypeName}" />
@@ -136,13 +136,13 @@
         <Border Grid.Row="2" Grid.Column="2" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Grid x:Name="VenorGrid">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -150,25 +150,25 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Vendor Name :</Label>
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtVendorName" GotFocus="txtVendorName_GotFocus" LostFocus="txtVendorName_LostFocus" Text="{Binding VendorToAdd.VendorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtVendorName" GotFocus="txtVendorName_GotFocus" LostFocus="txtVendorName_LostFocus" Text="{Binding VendorToAdd.VendorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblNameErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Vendor Name required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Address :</Label>
                 <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtAddress" GotFocus="txtAddress_GotFocus" LostFocus="txtAddress_LostFocus" Text="{Binding VendorToAdd.Address, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtAddress" GotFocus="txtAddress_GotFocus" LostFocus="txtAddress_LostFocus" Text="{Binding VendorToAdd.Address, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblAddressErrMsg" Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Address required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Remark :</Label>
-                <TextBox x:Name="txtRemark" Grid.Row="3" Grid.Column="1" Text="{Binding VendorToAdd.Remark, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtRemark" Grid.Row="3" Grid.Column="1" Text="{Binding VendorToAdd.Remark, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
 
-                <Button x:Name="btnAddVendorDetail" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding AddVendor}" CommandParameter="{Binding VendorToAdd}"  Height="30" Width="100" Content="Add Vendor" HorizontalAlignment="Left"></Button>
+                <Button x:Name="btnAddVendorDetail" Grid.Row="4" Margin="5" Grid.Column="1" Command="{Binding AddVendor}" CommandParameter="{Binding VendorToAdd}"  Height="30" Width="100" Content="Add Vendor" HorizontalAlignment="Left"></Button>
 
                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2">
                     <Label Style="{StaticResource HeaderStyle}">Vendor Informtion.</Label>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="VendorlistView" Margin="10,10,0,10" ItemsSource="{Binding Vendors}" Height="200" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="VendorlistView" Margin="5,5,0,5" ItemsSource="{Binding Vendors}" Height="100" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Vendor Name" DisplayMemberBinding="{Binding VendorName}" />
@@ -203,9 +203,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Style="{StaticResource LabelStyle}">Material Type Name</Label>
-                    <TextBox x:Name="txtMaterialTypeName"  Text="{Binding MaterialTypeToAdd.MaterialTypeName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtMaterialTypeName"  Text="{Binding MaterialTypeToAdd.MaterialTypeName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="200" HorizontalAlignment="Left" />
                     <Label x:Name="lblMaterialTypeErrMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Value required.</Label>
-                    <Button x:Name="btnAddMaterialType" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding AddMaterialType}" CommandParameter="{Binding MaterialTypeToAdd}"  Height="30" Width="100" Content="Add Material Type" HorizontalAlignment="Left"></Button>
+                    <Button x:Name="btnAddMaterialType" Grid.Row="4" Margin="5" Grid.Column="1" Command="{Binding AddMaterialType}" CommandParameter="{Binding MaterialTypeToAdd}"  Height="30" Width="100" Content="Add Material Type" HorizontalAlignment="Left"></Button>
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -214,9 +214,9 @@
                 <Label Style="{StaticResource HeaderStyle}">Add Quantity Unit</Label>
                 <StackPanel Orientation="Horizontal">
                     <Label Style="{StaticResource LabelStyle}">Quantity Unit Name</Label>
-                    <TextBox x:Name="txtUnitTypeName"  Text="{Binding UnitTypeToAdd.UnitName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="350" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtUnitTypeName"  Text="{Binding UnitTypeToAdd.UnitName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="200" HorizontalAlignment="Left" />
                     <Label x:Name="lblUnitMsg"  Visibility="Hidden" Style="{StaticResource ErrorMessageStyle}">* Value required.</Label>
-                    <Button x:Name="btnUnitType" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding AddUnitType}" CommandParameter="{Binding UnitTypeToAdd}"  Height="30" Width="100" Content="Add Unit" HorizontalAlignment="Left"></Button>
+                    <Button x:Name="btnUnitType" Grid.Row="4" Margin="5" Grid.Column="1" Command="{Binding AddUnitType}" CommandParameter="{Binding UnitTypeToAdd}"  Height="30" Width="100" Content="Add Unit" HorizontalAlignment="Left"></Button>
                 </StackPanel>
             </StackPanel>
         </Border>

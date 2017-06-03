@@ -10,15 +10,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Border Grid.Row="1" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Label Style="{StaticResource PageHeaderStyle}">Supervisor Detail</Label>
@@ -26,42 +26,42 @@
         <Border Grid.Row="2" Grid.Column="1" Margin="5" Background="White" BorderThickness="1" BorderBrush="DarkGray" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="1" Grid.Column="0"  Style="{StaticResource LabelStyle}">Supervisor Name :</Label>
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtSupervisorName" GotFocus="txtSupervisorName_GotFocus" Text="{Binding SupervisorToAdd.SupervisorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtSupervisorName" GotFocus="txtSupervisorName_GotFocus" Text="{Binding SupervisorToAdd.SupervisorName, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblNameErrMsg" Visibility="{Binding NameVisibility }" Style="{StaticResource ErrorMessageStyle}">* Supervisor Name required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Monthly Salary :</Label>
                 <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                    <TextBox x:Name="txtSalary" GotFocus="txtSalary_GotFocus" PreviewTextInput="txtSalary_PreviewTextInput" Text="{Binding SupervisorToAdd.MonthlySalary, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
+                    <TextBox x:Name="txtSalary" GotFocus="txtSalary_GotFocus" PreviewTextInput="txtSalary_PreviewTextInput" Text="{Binding SupervisorToAdd.MonthlySalary, Mode=TwoWay}"  Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                     <Label x:Name="lblSalaryErrMsg" Visibility="{Binding SalaryVisibility}" Style="{StaticResource ErrorMessageStyle}">* Monthly Salary required.</Label>
                 </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Duty Description :</Label>
                 <!--<StackPanel   Orientation="Horizontal">-->
-                <TextBox x:Name="txtDuty" Grid.Row="3" Grid.Column="1" Text="{Binding SupervisorToAdd.DutyDescription, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="300" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtDuty" Grid.Row="3" Grid.Column="1" Text="{Binding SupervisorToAdd.DutyDescription, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Width="250" HorizontalAlignment="Left" />
                 <!--<Label x:Name="lblDutyErrMsg" Visibility="{Binding}" Style="{StaticResource ErrorMessageStyle}">* Duty Description required.</Label>-->
                 <!--</StackPanel>-->
 
-                <Button x:Name="btnAddSupervisor" Grid.Row="4" Margin="10" Grid.Column="1" Command="{Binding Add}" CommandParameter="{Binding SupervisorToAdd}"  Height="30" Width="100" Content="Add Supervisor" HorizontalAlignment="Left"></Button>
+                <Button x:Name="btnAddSupervisor" Grid.Row="4" Margin="5" Grid.Column="1" Command="{Binding Add}" CommandParameter="{Binding SupervisorToAdd}"  Height="30" Width="100" Content="Add Supervisor" HorizontalAlignment="Left"></Button>
 
-                <StackPanel Grid.Row="1" Grid.RowSpan="5" Grid.Column="2">
+                <StackPanel Grid.Row="5" Grid.Column="1">
                     <Label Style="{StaticResource HeaderStyle}">Supervisor Informtion.</Label>
                     <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView x:Name="listView" Margin="10" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ListView x:Name="listView" Margin="5" ItemsSource="{Binding Supervisors}" Height="300" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header=" Name" DisplayMemberBinding="{Binding SupervisorName}" />
