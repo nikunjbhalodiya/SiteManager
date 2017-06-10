@@ -16,7 +16,7 @@ namespace SiteManager.Repository.Entities
         public int MaterialId { get; set; }
 
         [Column("VENDOR_ID")]
-        public int VendorId { get; set; }
+        public int? VendorId { get; set; }
         
         [Column("MATERIAL_TYPE_ID")]
         public int MaterialTypeId { get; set; }

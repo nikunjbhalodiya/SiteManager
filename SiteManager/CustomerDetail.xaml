@@ -92,16 +92,16 @@
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Extra Cost"  DisplayMemberBinding="{Binding ExtraCost}" />
                                     <GridViewColumn HeaderTemplate="{StaticResource GridHeaderTemplate}" Header="Purchase Date"  DisplayMemberBinding="{Binding PurchaseDate, StringFormat='dd/MM/yyyy'}" />
 
-                                    <!--<GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
+                                    <GridViewColumn Header="Delete" HeaderTemplate="{StaticResource GridHeaderTemplate}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button FontFamily="Segoe MDL2 Assets" BorderThickness="0" Content="&#xE74D;" Margin="20,0,0,0" HorizontalAlignment="Center"  
                                                 Background="Transparent" 
-                                                Command="{Binding Path=DataContext.DeleteMaterial, RelativeSource={RelativeSource FindAncestor, 
+                                                Command="{Binding Path=DataContext.DeleteCustomer, RelativeSource={RelativeSource FindAncestor, 
                                             AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                </GridViewColumn>-->
+                                </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                             <ListView.ItemContainerStyle>

@@ -30,6 +30,7 @@ namespace SiteManager.Core
             AddMaterialType = new RelayCommand(AddMaterialTypeCmd);
             AddUnitType = new RelayCommand(AddUnitTypeCmd);
             DeleteVendor = new RelayCommand(DeleteVendorCommand);
+            DeleteMaterial = new RelayCommand(DeleteMaterialCommand);
             _vendors = new ObservableCollection<Vendor>(vendors);
             _materials = new ObservableCollection<Material>(materials);
             VendorList = ProcessVendors(vendors);
@@ -79,6 +80,17 @@ namespace SiteManager.Core
                 _repositoryManager.DeleteVendor(vendor);
                 _vendors.Remove(vendor);
                 VendorList.Remove(VendorList.Single(x => x.VendorId == vendor.VendorId));
+            }
+        }
+
+        private void DeleteMaterialCommand(object model)
+        {
+            var material = model as Material;
+
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
+            {
+                _repositoryManager.DeleteMaterial(material);
+                _materials.Remove(material);
             }
         }
 

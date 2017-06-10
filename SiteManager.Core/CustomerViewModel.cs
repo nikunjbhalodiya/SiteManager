@@ -12,7 +12,7 @@ namespace SiteManager.Core
     public class CustomerViewModel : ViewModelBase
     {
         private readonly RepositoryManager _repositoryManager;
-        
+
         public CustomerViewModel(int siteId)
         {
             _repositoryManager = new RepositoryManager(new SqliteContext());
@@ -20,7 +20,18 @@ namespace SiteManager.Core
             var customers = _repositoryManager.GetCustomerBySiteId(SiteId);
             _customers = new ObservableCollection<Customer>(customers);
             Add = new RelayCommand(AddCommand);
+            DeleteCustomer = new RelayCommand(DeleteCustomerCmd);
             CustomerToAdd = new Customer();
+        }
+
+        private void DeleteCustomerCmd(object obj)
+        {
+            var customer = obj as Customer;
+            if (OnMessageBoxEvent("Do you want delete entry?"))
+            {
+                _repositoryManager.DeleteCustomer(customer);
+                _customers.Remove(customer);
+            }
         }
 
         private void AddCommand(object model)
@@ -41,12 +52,17 @@ namespace SiteManager.Core
                     return;
                 }
             }
+
+
+
             _repositoryManager.AddCustomer(customer);
             Customers = new ObservableCollection<Customer>(_repositoryManager.GetCustomerBySiteId(SiteId));
             CustomerToAdd = new Customer();
         }
 
         public RelayCommand Add { get; set; }
+
+        public RelayCommand DeleteCustomer { get; set; }
 
         private ObservableCollection<Customer> _customers;
 

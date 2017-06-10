@@ -47,6 +47,16 @@ namespace SiteManager.Repository
             var mapper = new SiteMapper();
             return mapper.Map(sites);
         }
+
+        public void DeleteLabour(Labour labour)
+        {
+            var mapper = new LaboursPaymentMapper();
+            var entity = mapper.Map(labour);
+            var entityToDelete = _labourRepo.Get(entity.LabourId);
+            _labourRepo.Delete(entityToDelete);
+            _labourRepo.Save();
+        }
+
         public void AddSite(SiteModel site)
         {
             var repository = new Repository<SiteEntity>(_context);
@@ -54,6 +64,24 @@ namespace SiteManager.Repository
             var entity = mapper.Map(site);
             _siteRepo.Add(entity);
             _siteRepo.Save();
+        }
+
+        public void DeleteContractor(Contractor contractor)
+        {
+            var mapper = new ContractorMapper();
+            var entity = mapper.Map(contractor);
+            var entityToDelete = _contractorRepo.Get(entity.ContractorId);
+            _contractorRepo.Delete(entityToDelete);
+            _contractorRepo.Save();
+        }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            var mapper = new CustomerMapper();
+            var entity = mapper.Map(customer);
+            var entityToDelete = _customerRepo.Get(entity.CustomerId);
+            _customerRepo.Delete(entityToDelete);
+            _customerRepo.Save();
         }
 
         public IEnumerable<Supervisor> GetSupervisorsBySiteId(int siteId)
@@ -95,7 +123,14 @@ namespace SiteManager.Repository
             return mapper.Map(materials.ToList());
         }
 
-        
+        public void DeleteMaterial(Material material)
+        {
+            var mapper = new MaterialMapper();
+            var entity = mapper.Map(material);
+            var entityToDelete = _materialRepo.Get(entity.MaterialId);
+            _materialRepo.Delete(entityToDelete);
+            _materialRepo.Save();
+        }
 
         public void DeleteSupervisor(Supervisor supervisorModel)
         {

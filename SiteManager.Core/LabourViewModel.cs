@@ -31,11 +31,22 @@ namespace SiteManager.Core
             LabourToAdd = new Labour();
             DeleteContractor = new RelayCommand(DeleteContractorCmd);
             DeleteWorkType = new RelayCommand(DeleteWorkTypecmd);
+            DeleteLabour = new RelayCommand(DeleteLabourCmd);
             
             _contractors = new ObservableCollection<Contractor>(contractors);
             ContractorList = ProcessContractorList(contractors);
             _workTypes = ProcessWorkTypeKeyValue(workTypes);
             _labours = new ObservableCollection<Labour>(_repositoryManager.GetLabourPayments(SiteId));
+        }
+
+        private void DeleteLabourCmd(object obj)
+        {
+            var labour = obj as Labour;
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
+            {
+                _repositoryManager.DeleteLabour(labour);
+                _labours.Remove(labour);
+            }
         }
 
         private void DeleteWorkTypecmd(object obj)
@@ -49,7 +60,10 @@ namespace SiteManager.Core
         {
             var contractor = obj as Contractor;
             if (OnMessageBoxEvent("Do you want to delete this entry?"))
+            {
+                _repositoryManager.DeleteContractor(contractor);
                 _contractors.Remove(contractor);
+            }
         }
 
         private void AddLabourCmd(object model)
@@ -196,6 +210,7 @@ namespace SiteManager.Core
         public RelayCommand DeleteContractor { get; set; }
 
         public RelayCommand DeleteWorkType { get; set; }
+        public RelayCommand DeleteLabour { get; private set; }
 
         private ObservableCollection<ContractorKeyValue> ProcessContractorList(IEnumerable<Contractor> contractorList)
         {

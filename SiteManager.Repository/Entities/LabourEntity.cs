@@ -15,7 +15,7 @@ namespace SiteManager.Repository.Entities
         [Column("LABOUR_PAYMENT_ID")]
         public int LabourId { get; set; }
         [Column("CONTRACTOR_ID")]
-        public int ContractorId { get; set; }
+        public int? ContractorId { get; set; }
         [Column("WORK_TYPE_ID")]
         public int WorkTypeId { get; set; }
 
