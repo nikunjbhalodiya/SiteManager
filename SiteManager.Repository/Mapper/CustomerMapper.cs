@@ -43,5 +43,16 @@ namespace SiteManager.Repository.Mapper
                 PurchaseDate = entity.PurchaseDate
             };
         }
+
+        public void Map(Customer model, CustomerEntity entity)
+        {
+            entity.CustomerName = model.CustomerName;
+            entity.ExtraCost = model.ExtraCost;
+            entity.ExtraWork = model.ExtraWork;
+            entity.MobileNumber = model.MobileNumber;
+            entity.PurchaseDate = model.PurchaseDate;
+            entity.TotalCost = model.TotalCost;
+            entity.CreatedDate = model.CreatedDate;
+        }
     }
 }

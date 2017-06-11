@@ -63,16 +63,18 @@ namespace SiteManager.Core
             PaymentGridVisibility = Visibility.Visible;
             PaymentGridHeading = _entity.Name + " Payment Detail";
             PaymentDetails = new ObservableCollection<DebitCreditOfPayment>(_repositoryManager.GetDebitCreditListOfEntity(_entity));
-            
-            if (PaymentDetails.Count == 0)
-            {
-                AmountRemain = _entity.TotalAmount;
-                DebitAmount = _entity.TotalAmount;
-                return;
-            }
 
-            AmountRemain = PaymentDetails.Last().DebitAmount;
-            DebitAmount = PaymentDetails.Last().DebitAmount;
+            //if (PaymentDetails.Count == 0)
+            //{
+            //    AmountRemain = _entity.TotalAmount;
+            //    DebitAmount = _entity.TotalAmount;
+            //    return;
+            //}
+
+            AmountRemain = DebitAmount = _entity.TotalAmount - PaymentDetails.Sum(x => x.CreditAmount);
+
+            //AmountRemain = PaymentDetails.Last().DebitAmount;
+            //DebitAmount = PaymentDetails.Last().DebitAmount;
         }
 
         private void AddCommand(object obj)

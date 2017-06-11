@@ -84,6 +84,15 @@ namespace SiteManager.Repository
             _customerRepo.Save();
         }
 
+        public void UpdateCustomer(Customer customer)
+        {
+            var mapper = new CustomerMapper();
+            var cust = _customerRepo.Get(customer.CustomerId);
+            mapper.Map(customer, cust);
+            _customerRepo.Update(cust);
+            _customerRepo.Save();
+        }
+
         public IEnumerable<Supervisor> GetSupervisorsBySiteId(int siteId)
         {
             var supervisor = _supervisorRepo.Find(x => x.SiteId == siteId);
@@ -294,7 +303,7 @@ namespace SiteManager.Repository
             {
                 case 1:
                     var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
-                    entity = custEntity.Select(x => new Entity { Identity= x.HouseNumber  ,EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost, SiteId = siteId });
+                    entity = custEntity.Select(x => new Entity { Identity= x.HouseNumber  ,EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost + x.ExtraCost, SiteId = siteId });
                     break;
                 case 2:
                     var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);

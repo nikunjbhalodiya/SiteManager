@@ -97,9 +97,27 @@ namespace SiteManager
             {
 
                 var cust = item.Content as Customer;
-                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { Identity = cust.HouseNumber ,EntityId = cust.CustomerId, EntityTypeId = 1, Name = cust.CustomerName, Date = cust.CreatedDate, TotalAmount = cust.TotalCost, SiteId = SiteDetail.SiteId  });
+                DebitCreditInformation debitCredit = new DebitCreditInformation(new Entity { Identity = cust.HouseNumber ,EntityId = cust.CustomerId, EntityTypeId = 1, Name = cust.CustomerName, Date = cust.CreatedDate, TotalAmount = cust.TotalCost + cust.ExtraCost, SiteId = SiteDetail.SiteId  });
                 debitCredit.ShowDialog();
             }
+        }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txtHouseNumber.IsEnabled = false;
+            var item = sender as ListView;
+            if (item != null)
+            {
+                var customer = item.SelectedItem as Customer;
+                _viewModel.CustomerToAdd = customer;
+            }
+
+        }
+
+        private void btnClearCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            txtHouseNumber.IsEnabled = true;
+            _viewModel.CustomerToAdd = new Customer();
         }
     }
 }
