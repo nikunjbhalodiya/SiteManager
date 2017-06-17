@@ -179,6 +179,7 @@ namespace SiteManager.Core
             SelectedVendor = VendorList.First();
             MaterialToAdd.SelectedMaterialType = MaterialTypes.First();
             OnPropertyChanged(nameof(MaterialToAdd));
+            OnPropertyChanged(nameof(SelectedVendor));
         }
 
         private void AddVendorCommand(object model)
