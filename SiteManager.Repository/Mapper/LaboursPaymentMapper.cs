@@ -28,7 +28,7 @@ namespace SiteManager.Repository.Mapper
             {
                 CreateDate = entity.CreateDate,
                 LabourId = entity.LabourId,
-                Contractor = entity.ContractorId != null ?  new ContractorMapper().Map(entity.Contractor) : new Contractor(),
+                Contractor = entity.Contractor != null ?  new ContractorMapper().Map(entity.Contractor) : new Contractor(),
                 WorkType = new WorkTypeMapper().Map(entity.WorkType),
                 Payment = entity.Payment,
                 PaymentDate = entity.PaymentDate,

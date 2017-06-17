@@ -37,7 +37,7 @@ namespace SiteManager.Repository.Mapper
                 BillDate = entity.BillDate,
                 BillNumber = entity.BillNumber,
                 SelectedMaterialType = new MaterialType { MaterialTypeId = entity.MaterialType.MaterialTypeId, MaterialTypeName = entity.MaterialType.MaterialTypeName },
-                SelectedVendor = entity.VendorId != null ? new VendorMapper().Map(entity.Vendor) : new Vendor(),
+                SelectedVendor = entity.Vendor != null ? new VendorMapper().Map(entity.Vendor) : new Vendor(),
                 SelectedUnit = new QuantityUnitType { UnitId = entity.Unit.UnitId,  UnitName = entity.Unit.UnitName },
                 CreatedDate = entity.CreatedDate,
                 Quantity = entity.Quantity,

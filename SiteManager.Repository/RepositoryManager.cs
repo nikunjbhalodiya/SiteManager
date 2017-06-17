@@ -76,6 +76,9 @@ namespace SiteManager.Repository
             var entity = mapper.Map(contractor);
             var entityToDelete = _contractorRepo.Get(entity.ContractorId);
             _contractorRepo.Delete(entityToDelete);
+            var labourEntity = _labourRepo.Find(x => x.ContractorId == entityToDelete.ContractorId);
+            labourEntity.ToList().ForEach(x => x.ContractorId = null);
+            _labourRepo.Save();
             _contractorRepo.Save();
         }
 
@@ -246,6 +249,9 @@ namespace SiteManager.Repository
             var entity = mapper.Map(vendor);
             var entityToDelete = _vendorRepo.Get(vendor.VendorId);
             _vendorRepo.Delete(entityToDelete);
+            var materialEntity = _materialRepo.Find(x => x.VendorId == entityToDelete.VendorId);
+            materialEntity.ToList().ForEach(x => x.VendorId = null);
+            _materialRepo.Save();
             _vendorRepo.Save();
         }
 
