@@ -24,6 +24,8 @@ namespace SiteManager.Repository
         Repository<MaterialTypeEntity> _materialTypeRepo;
         Repository<UnitEntity> _unitTypeRepo;
         Repository<DebitCreditEntity> _debitCreditRepo;
+        Repository<CustomerDeleted> _deletedCustomerRepo;
+        
         public RepositoryManager(SqliteContext context)
         {
             _context = context;
@@ -38,6 +40,8 @@ namespace SiteManager.Repository
             _materialTypeRepo = new Repository<MaterialTypeEntity>(_context);
             _unitTypeRepo = new Repository<UnitEntity>(_context);
             _debitCreditRepo = new Repository<DebitCreditEntity>(_context);
+            _deletedCustomerRepo = new Repository<CustomerDeleted>(_context);
+
         }
 
         public IEnumerable<SiteModel> GetSites()
@@ -82,15 +86,50 @@ namespace SiteManager.Repository
             var entityToDelete = _customerRepo.Get(entity.CustomerId);
             _customerRepo.Delete(entityToDelete);
             _customerRepo.Save();
+
+            AddDeletedCustomerToBackupTable(entityToDelete);
+        }
+
+        private void AddDeletedCustomerToBackupTable(CustomerEntity entityToDelete)
+        {
+            var mapper = new DeletedCustomerMapper();
+            var entityToAdd = mapper.Map(entityToDelete);
+            _deletedCustomerRepo.Add(entityToAdd);
+            _deletedCustomerRepo.Save();
         }
 
         public void UpdateCustomer(Customer customer)
         {
+            IEnumerable<DebitCreditEntity> creditDebitEntity = Enumerable.Empty<DebitCreditEntity>();
             var mapper = new CustomerMapper();
             var cust = _customerRepo.Get(customer.CustomerId);
+            if (cust.HouseNumber == customer.HouseNumber || cust.ExtraCost != customer.ExtraCost || cust.TotalCost != customer.TotalCost)
+            {
+              creditDebitEntity = _debitCreditRepo.Find(x => x.EntityId == customer.CustomerId && x.EntityTypeId == 1 && x.SiteId == customer.SiteId);
+            }
+
             mapper.Map(customer, cust);
             _customerRepo.Update(cust);
             _customerRepo.Save();
+
+            UpdateCreditDebitEntity(creditDebitEntity, cust.TotalCost + cust.ExtraCost);
+        }
+
+        private void UpdateCreditDebitEntity(IEnumerable<DebitCreditEntity> creditDebitEntity, decimal totalAmt)
+        {
+            if (!creditDebitEntity.Any())
+                return;
+
+            var ordereddate = creditDebitEntity.OrderByDescending(x => x.DebitAmount);
+            decimal remainingAmt = totalAmt;
+            for (int i = 0; i < ordereddate.Count(); i++)
+            {
+                var element = ordereddate.ElementAt(i);
+                remainingAmt = remainingAmt - element.CreditAmount;
+                element.DebitAmount = remainingAmt;
+                _debitCreditRepo.Update(element);
+                _debitCreditRepo.Save();
+            }
         }
 
         public IEnumerable<Supervisor> GetSupervisorsBySiteId(int siteId)
@@ -115,7 +154,7 @@ namespace SiteManager.Repository
             return mapper.Map(customers.ToList());
         }
 
-        
+
 
         public void AddCustomer(Customer customer)
         {
@@ -164,7 +203,7 @@ namespace SiteManager.Repository
 
         public IEnumerable<MaterialType> GetMaterialTypes()
         {
-            return _materialTypeRepo.GetAll().Select(x => new MaterialType { MaterialTypeId = x.MaterialTypeId, MaterialTypeName = x.MaterialTypeName  });
+            return _materialTypeRepo.GetAll().Select(x => new MaterialType { MaterialTypeId = x.MaterialTypeId, MaterialTypeName = x.MaterialTypeName });
         }
 
         public IEnumerable<QuantityUnitType> GetUnitsOfMaterial()
@@ -280,8 +319,8 @@ namespace SiteManager.Repository
 
         public IEnumerable<DebitCreditOfPayment> GetDebitCreditListOfEntity(Entity entity)
         {
-            var list = _debitCreditRepo.Find(x => x.EntityId == entity.EntityId 
-            && x.EntityTypeId == entity.EntityTypeId 
+            var list = _debitCreditRepo.Find(x => x.EntityId == entity.EntityId
+            && x.EntityTypeId == entity.EntityTypeId
             && x.SiteId == entity.SiteId);
 
             var mapper = new DebitCreditMapper();
@@ -303,7 +342,7 @@ namespace SiteManager.Repository
             {
                 case 1:
                     var custEntity = _customerRepo.Find(x => x.CustomerName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
-                    entity = custEntity.Select(x => new Entity { Identity= x.HouseNumber  ,EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost + x.ExtraCost, SiteId = siteId });
+                    entity = custEntity.Select(x => new Entity { Identity = x.HouseNumber, EntityId = x.CustomerId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.CustomerName, TotalAmount = x.TotalCost + x.ExtraCost, SiteId = siteId });
                     break;
                 case 2:
                     var materialEntity = _materialRepo.Find(x => x.MaterialType.MaterialTypeName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
@@ -311,7 +350,7 @@ namespace SiteManager.Repository
                     break;
                 case 3:
                     var supervisorEntity = _supervisorRepo.Find(x => x.SupervisorName.ToLower().Contains(searchText.ToLower()) && x.SiteId == siteId);
-                    entity = supervisorEntity.Select(x => new Entity { Identity = x.DutyDescription , EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
+                    entity = supervisorEntity.Select(x => new Entity { Identity = x.DutyDescription, EntityId = x.SupervisorId, EntityTypeId = entityTypeId, Date = x.CreatedDate, Name = x.SupervisorName, TotalAmount = x.Salary, SiteId = siteId });
                     break;
                 default:
                     throw new ArgumentException("Invalid entity type.");

@@ -46,7 +46,7 @@ namespace SiteManager.Core
         private void DeleteCustomerCmd(object obj)
         {
             var customer = obj as Customer;
-            if (OnMessageBoxEvent("Do you want delete entry?"))
+            if (OnMessageBoxEvent("Do you want to delete this entry?"))
             {
                 _repositoryManager.DeleteCustomer(customer);
                 _customers.Remove(customer);
@@ -71,8 +71,6 @@ namespace SiteManager.Core
                     return;
                 }
             }
-
-
 
             _repositoryManager.AddCustomer(customer);
             Customers = new ObservableCollection<Customer>(_repositoryManager.GetCustomerBySiteId(SiteId));

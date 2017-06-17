@@ -22,6 +22,9 @@ namespace SiteManager.Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CustomerDeleted>()
+              .HasKey(x => x.CustomerId);
+
             modelBuilder.Entity<CustomerEntity>()
               .HasRequired(s => s.Site)
               .WithMany(s => s.Customers)
